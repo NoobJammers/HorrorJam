@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1567510743533710852}
   - component: {fileID: 1061900779}
   - component: {fileID: 5781401140787685153}
+  - component: {fileID: 118779202}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -49,7 +50,7 @@ MonoBehaviour:
   rigidBody: {fileID: 1061900779}
   mouseLook: {fileID: 1567510743552691914}
   lookSpeed: 200
-  movementSpeed: 2
+  movementSpeed: 4
 --- !u!54 &1061900779
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -80,6 +81,18 @@ CapsuleCollider:
   m_Height: 1.8915939
   m_Direction: 1
   m_Center: {x: 0.02509743, y: 0.088651896, z: -0.11863092}
+--- !u!114 &118779202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567510743533710857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd84717a82699f548b8bd3e71f5791c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1567510743552691917
 GameObject:
   m_ObjectHideFlags: 0
