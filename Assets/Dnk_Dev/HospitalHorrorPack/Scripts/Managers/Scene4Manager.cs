@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
+
 using UnityEngine.Events;
 public class Scene4Manager : MonoBehaviour
 {
@@ -11,13 +11,14 @@ public class Scene4Manager : MonoBehaviour
     GameObject husband, wife, kid;
     [SerializeField] DoorHandler kidsRoomDoor;
     [SerializeField] Transform enterRoomStartPoint;
+    [SerializeField] Transform kidbed;
 
     public System.Action<Collider> GeneralEvent = (Collider collider) =>
     {
 
     };
     [SerializeField] public UnityEvent SpawnDemon;
-
+    [SerializeField] public UnityEvent<Vector3, Vector3> MoveManToPosition;
 
     private void Awake()
     {
@@ -27,6 +28,7 @@ public class Scene4Manager : MonoBehaviour
 
               if (collider.tag == "MirrorTrigger")
               {
+                  Destroy(collider.gameObject);
                   StartMirrorScene();
                   SpawnDemon.Invoke();
               }
@@ -41,8 +43,7 @@ public class Scene4Manager : MonoBehaviour
     public void StartMirrorScene()
     {
         kidsRoomDoor.OpenDoor(2f);
-        husband.transform.position = enterRoomStartPoint.position;
-        husband.transform.DOMoveZ(transform.position.z - 3f, 4f);
+        MoveManToPosition.Invoke(enterRoomStartPoint.position, kidbed.position);
 
     }
 
