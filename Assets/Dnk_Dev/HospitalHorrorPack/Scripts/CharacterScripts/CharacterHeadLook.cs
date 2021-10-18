@@ -8,10 +8,10 @@ public class CharacterHeadLook : MonoBehaviour
 
     private void Start()
     {
-        NeckBone.transform.LookAt(Camera.main.transform);
+        /*     NeckBone.transform.up = (NeckBone.transform.position - Camera.main.transform.position).normalized;*/
     }
     public void lookAt(Transform t)
     {
-        NeckBone.transform.LookAt(t);
+        /*        NeckBone.transform.LookAt(t);*/
     }
 }
