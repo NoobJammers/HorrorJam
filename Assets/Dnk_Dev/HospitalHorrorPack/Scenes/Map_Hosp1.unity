@@ -8875,6 +8875,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2734b0c40796ac4f83c08cdc329ca90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NeckBone: {fileID: 1119315566}
 --- !u!1001 &558145672
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16888,6 +16889,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1119167132}
   m_Mesh: {fileID: 3305979892661039173, guid: 801bb056ca068d248ae7388988b28aa1, type: 3}
+--- !u!1 &1119315566 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2304808372292005241, guid: 7f514c57175ed1048a3dbd221519d207, type: 3}
+  m_PrefabInstance: {fileID: 1496176337311536087}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1133721516
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39950,6 +39956,21 @@ MonoBehaviour:
       - m_Target: {fileID: 556516140}
         m_TargetAssemblyTypeName: CharacterMover, Assembly-CSharp
         m_MethodName: GoToPoint
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ManLookAt:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 556516141}
+        m_TargetAssemblyTypeName: CharacterHeadLook, Assembly-CSharp
+        m_MethodName: lookAt
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -19,6 +19,7 @@ public class Scene4Manager : MonoBehaviour
     };
     [SerializeField] public UnityEvent SpawnDemon;
     [SerializeField] public UnityEvent<Vector3, Vector3> MoveManToPosition;
+    [SerializeField] public UnityEvent<Transform> ManLookAt;
 
     private void Awake()
     {
@@ -44,6 +45,7 @@ public class Scene4Manager : MonoBehaviour
     {
         kidsRoomDoor.OpenDoor(2f);
         MoveManToPosition.Invoke(enterRoomStartPoint.position, kidbed.position);
+        ManLookAt.Invoke(Camera.main.transform);
 
     }
 

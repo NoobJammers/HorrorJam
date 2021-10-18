@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class CharacterHeadLook : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject NeckBone;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        NeckBone.transform.LookAt(Camera.main.transform);
+    }
+    public void lookAt(Transform t)
+    {
+        NeckBone.transform.LookAt(t);
     }
 }
