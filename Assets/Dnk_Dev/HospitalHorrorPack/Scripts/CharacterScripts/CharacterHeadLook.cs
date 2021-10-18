@@ -8,10 +8,11 @@ public class CharacterHeadLook : MonoBehaviour
 
     private void Start()
     {
-        /*     NeckBone.transform.up = (NeckBone.transform.position - Camera.main.transform.position).normalized;*/
+
     }
     public void lookAt(Transform t)
     {
-        /*        NeckBone.transform.LookAt(t);*/
+        NeckBone.transform.rotation = Quaternion.LookRotation((Camera.main.transform.position - NeckBone.transform.position).normalized, Vector3.up) * Quaternion.Euler(-90, 0, 0) * Quaternion.Euler(0, 90, 0);
+
     }
 }
