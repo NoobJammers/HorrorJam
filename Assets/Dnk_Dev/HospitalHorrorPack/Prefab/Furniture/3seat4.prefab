@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5105680602058096487}
   - component: {fileID: 9150827474016916971}
   m_Layer: 0
-  m_Name: DoubleSeat3
+  m_Name: 3seat4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
