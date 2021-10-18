@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
 
     [SerializeField] Rigidbody rigidBody;
     [SerializeField] MouseLook mouseLook;
-    [SerializeField] float lookSpeed = 100f;
-    [SerializeField] float movementSpeed = 12f;
+    [SerializeField] float lookSpeed = 200f;
+    [SerializeField] float movementSpeed = 4f;
 
     Vector3 move;
     private void Start()
@@ -38,5 +38,12 @@ public class PlayerMovement : MonoBehaviour
 
         move = transform.right * x + transform.forward * z;
         rigidBody.velocity = move.normalized * movementSpeed;
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+
+
+        Scene4Manager.instance.GeneralEvent.Invoke(other);
+
     }
 }

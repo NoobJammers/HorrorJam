@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.44
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.056019656, g: 0.05902495, b: 0.053274695, a: 0.44}
+  m_IndirectSpecularColor: {r: 0.056019694, g: 0.05902493, b: 0.053274628, a: 0.44}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2274,6 +2274,53 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4508050771134228, guid: 669679f799484624f86f2ca3427a8be8, type: 3}
   m_PrefabInstance: {fileID: 145300180}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &152979565
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 152979567}
+  - component: {fileID: 152979566}
+  m_Layer: 0
+  m_Name: DemonSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &152979566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152979565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbe6204bbc92a874ea13bc635a7e5c32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  demonCrawler: {fileID: 4934083134379802454, guid: b2bdfcd6cc946b448ab103a735099afb, type: 3}
+  demonSpawnPos:
+  - {x: -3.5, y: 1.5, z: -0.881}
+  - {x: -3.258, y: 3.02, z: 0}
+--- !u!4 &152979567
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152979565}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.818413, y: 0.5269161, z: -2.9605339}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &157264775
 GameObject:
   m_ObjectHideFlags: 0
@@ -17309,13 +17356,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 1567510743533710852, guid: 08ec4089c1b2a4a409de82484ffd1aad, type: 3}
+    - {fileID: 118779202, guid: 08ec4089c1b2a4a409de82484ffd1aad, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 08ec4089c1b2a4a409de82484ffd1aad, type: 3}
 --- !u!4 &1338236867 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1567510743533710859, guid: 08ec4089c1b2a4a409de82484ffd1aad, type: 3}
   m_PrefabInstance: {fileID: 1338236866}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1338236868 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1567510743533710857, guid: 08ec4089c1b2a4a409de82484ffd1aad, type: 3}
+  m_PrefabInstance: {fileID: 1338236866}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1338236869 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1567510743552691914, guid: 08ec4089c1b2a4a409de82484ffd1aad, type: 3}
+  m_PrefabInstance: {fileID: 1338236866}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2ab44a4f2b73dd48a23e036f30e03c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!54 &1338236870 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 1061900779, guid: 08ec4089c1b2a4a409de82484ffd1aad, type: 3}
+  m_PrefabInstance: {fileID: 1338236866}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1338236871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338236868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 989e01529e2a20e4d93d5cf0879b8330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rigidBody: {fileID: 1338236870}
+  mouseLook: {fileID: 1338236869}
+  lookSpeed: 200
+  movementSpeed: 4
 --- !u!1 &1344433951
 GameObject:
   m_ObjectHideFlags: 0
@@ -31907,6 +31995,21 @@ MonoBehaviour:
   demonCrawler: {fileID: 0}
   kidsRoomDoor: {fileID: 729091168814242464}
   enterRoomStartPoint: {fileID: 8636937854845341713}
+  SpawnDemon:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 152979566}
+        m_TargetAssemblyTypeName: DemonSpawner, Assembly-CSharp
+        m_MethodName: activate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &8636937853234760011
 Transform:
   m_ObjectHideFlags: 0
