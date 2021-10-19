@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using DG.Tweening;
+using System;
 public class CharacterMover : MonoBehaviour
 {
     private string animationToPlay = "Walking";
@@ -11,6 +12,7 @@ public class CharacterMover : MonoBehaviour
     private NavMeshAgent agent;
 
     public Animator animator;
+    public Action reachedDestination;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,24 +27,23 @@ public class CharacterMover : MonoBehaviour
         {
             if ((transform.position - agent.destination).magnitude < 0.2f)
             {
-                agent.isStopped = true;
-
-                animator.Play(animationOnceStopped);
+                StopMoving();
             }
         }
     }
-    public void GoToPoint(Vector3 startposition, Vector3 destination)
+    public Action GoToPoint(Vector3 startposition, Vector3 destination)
     {
         transform.position = startposition;
         transform.LookAt(destination);
         agent.isStopped = false;
         animator.Play(animationToPlay);
         agent.SetDestination(destination);
-
+        return reachedDestination;
 
     }
     public void StopMoving()
     {
+        reachedDestination.Invoke();
         animator.Play(animationOnceStopped);
         agent.isStopped = true;
 

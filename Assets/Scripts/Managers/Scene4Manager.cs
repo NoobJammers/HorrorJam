@@ -1,13 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 using UnityEngine.Events;
 public class Scene4Manager : MonoBehaviour
 {
 
     static public Scene4Manager instance;
-    [SerializeField] DoorHandler kidsRoomDoor;
 
 
     public System.Action<Collider> GeneralEvent = (Collider collider) =>
@@ -38,7 +37,7 @@ public class Scene4Manager : MonoBehaviour
     /// Doors
     /// </summary>
 
-    public DoorHandler kidsRoomnDoor;
+    public DoorHandler kidsRoomDoor;
     public DoorHandler wiferoomdoor;
 
 
@@ -95,6 +94,8 @@ public class Scene4Manager : MonoBehaviour
     ///<summary>
     /// PostProcessingVolume
     ///</summary>
+
+
     private void Awake()
     {
         instance = this;
@@ -112,8 +113,9 @@ public class Scene4Manager : MonoBehaviour
                   Destroy(collider.gameObject);
                   StartBabySnatchedScene();
               }
-              //TODO: WHEN FIRST CROSSED THE THRESHOLD OF THE 4TH SCENE TRIGGER
+              //TODO: WHEN FIRST CROSSED THE THRESHOLD OF THE 4TH house TRIGGER
               //--> DOOR CLOSED
+              //init stuff
           };
 
     }
@@ -124,14 +126,20 @@ public class Scene4Manager : MonoBehaviour
 
     public void StartMirrorScene()
     {
-        kidsRoomDoor.OpenDoor(2f);
-        MoveCharacterToPosition.Invoke(enterRoomStartPoint.position, kidbed.position);
-        ManLookAt.Invoke(Camera.main.transform);
+
+        kidsRoomDoor.OpenDoor(2, true);
+        Action a = baby_char_mover.GoToPoint(baby_position_1.position, baby_position_2.position);
+        a += () =>
+        {
+
+        };
+        /*      MoveCharacterToPosition.Invoke(enterRoomStartPoint.position, kidbed.position);
+              ManLookAt.Invoke(Camera.main.transform);*/
 
     }
     public void StartBabySnatchedScene()
     {
-        BabyChangeAnimation.Invoke("PickUp", 0);
+        /*        BabyChangeAnimation.Invoke("PickUp", 0);*/
 
     }
 
