@@ -37,7 +37,9 @@ public class PlayerPointer : MonoBehaviour
         {
             if (lastHit)
                 lastInteractable.PerformInteractableAction();
-
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+            CanvasManager.instance.EnableDiary(false);
     }
 }

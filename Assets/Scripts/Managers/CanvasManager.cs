@@ -5,7 +5,7 @@ using UnityEngine;
 public class CanvasManager : MonoBehaviour
 {
     static public CanvasManager instance;
-    [SerializeField] GameObject interactText;
+    [SerializeField] GameObject interactText, diary;
 
     private void Awake()
     {
@@ -18,6 +18,14 @@ public class CanvasManager : MonoBehaviour
         else
             interactText.SetActive(false);
     }
+
+
+    public void EnableDiary(bool val)
+    {
+        diary.SetActive(val);
+    }
+
+
 
 
 }

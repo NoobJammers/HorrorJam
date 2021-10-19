@@ -149,4 +149,10 @@ public class Scene4Manager : MonoBehaviour
 
     }
 
+    public void SetDiary(bool value)
+    {
+        CanvasManager.instance.EnableDiary(value);
+    }
+
+
 }

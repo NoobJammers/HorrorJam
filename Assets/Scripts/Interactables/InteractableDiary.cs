@@ -8,6 +8,7 @@ public class InteractableDiary : Interactable
     override public void PerformInteractableAction()
     {
         base.PerformInteractableAction();
-        // doorHandler.OpenDoor(1f);
+        Scene4Manager.instance.SetDiary(true);
+
     }
 }
