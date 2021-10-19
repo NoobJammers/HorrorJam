@@ -21,12 +21,12 @@ public class CharacterMover : MonoBehaviour
     private void Update()
     {
         agent.speed = speed;
-        if (agent.enabled)
+        if (!agent.isStopped)
         {
             if ((transform.position - agent.destination).magnitude < 0.2f)
             {
                 agent.isStopped = true;
-                agent.enabled = false;
+
                 animator.Play(animationOnceStopped);
             }
         }
@@ -35,7 +35,7 @@ public class CharacterMover : MonoBehaviour
     {
         transform.position = startposition;
         transform.LookAt(destination);
-        agent.enabled = true;
+        agent.isStopped = false;
         animator.Play(animationToPlay);
         agent.SetDestination(destination);
 
@@ -45,7 +45,7 @@ public class CharacterMover : MonoBehaviour
     {
         animator.Play(animationOnceStopped);
         agent.isStopped = true;
-        agent.enabled = false;
+
 
     }
 }

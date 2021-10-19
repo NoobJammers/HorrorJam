@@ -7,20 +7,94 @@ public class Scene4Manager : MonoBehaviour
 {
 
     static public Scene4Manager instance;
-    [SerializeField]
-    GameObject husband, wife, kid;
     [SerializeField] DoorHandler kidsRoomDoor;
-    [SerializeField] Transform enterRoomStartPoint;
-    [SerializeField] Transform kidbed;
+
 
     public System.Action<Collider> GeneralEvent = (Collider collider) =>
     {
 
     };
-    [SerializeField] public UnityEvent SpawnDemon;
-    [SerializeField] public UnityEvent<Vector3, Vector3> MoveManToPosition;
-    [SerializeField] public UnityEvent<Transform> ManLookAt;
 
+    /// <summary>
+    /// BABY VARIABLES
+    /// </summary>
+    public GameObject baby;
+    public CharacterMover baby_char_mover;
+    public CharacterHeadLook baby_head_look;
+    public CharacterSwitchAnimation baby_switch_animation;
+
+
+    [SerializeField] Transform baby_position_1;
+    [SerializeField] Transform baby_position_2;
+    public Transform baby_position_3;
+    /// <summary>
+    /// DemonCrawler
+    /// </summary>
+    public GameObject demoncrawler_one_off;
+    public CharacterSwitchAnimation demoncrawler_one_off_switch_animation;
+    [SerializeField] Transform demoncrawler_one_off_finalposition;
+
+    /// <summary>
+    /// Doors
+    /// </summary>
+
+    public DoorHandler kidsRoomnDoor;
+    public DoorHandler wiferoomdoor;
+
+
+    /// <summary>
+    /// Wife
+    /// </summary>
+    /// 
+    public GameObject wife;
+    public CharacterMover wife_char_mover;
+    public CharacterHeadLook wife_head_look;
+    public CharacterSwitchAnimation wife_switch_animation;
+    public Transform wife_position_1;
+    public Transform wife_position_2;
+    public Transform wife_position_3;
+
+    public Transform wife_final_position;
+
+    /// <summary>
+    /// Man
+    /// </summary>
+    public GameObject man;
+    public CharacterMover man_char_mover;
+    public CharacterHeadLook man_head_look;
+    public CharacterSwitchAnimation man_switch_animation;
+    public float[] man_shoot_timestamps;
+
+
+    /// <summary>
+    /// DEVIL
+    /// </summary>
+
+    public GameObject devil;
+    public CharacterMover devil_char_mover;
+    public CharacterHeadLook devil_head_look;
+    public CharacterSwitchAnimation devil_switch_animation;
+
+    /// <summary>
+    /// DEMON SPAWNER
+    /// </summary>
+    /// 
+
+    DemonSpawner spawner;
+    Transform[] spawnerpoints;
+
+
+    /// <summary>
+    /// TV
+    /// </summary>
+
+    ///<summary>
+    /// WallWriting
+    ///</summary>
+
+    ///<summary>
+    /// PostProcessingVolume
+    ///</summary>
     private void Awake()
     {
         instance = this;
@@ -31,8 +105,15 @@ public class Scene4Manager : MonoBehaviour
               {
                   Destroy(collider.gameObject);
                   StartMirrorScene();
-                  SpawnDemon.Invoke();
+
               }
+              if (collider.tag == "PickUpTrigger")
+              {
+                  Destroy(collider.gameObject);
+                  StartBabySnatchedScene();
+              }
+              //TODO: WHEN FIRST CROSSED THE THRESHOLD OF THE 4TH SCENE TRIGGER
+              //--> DOOR CLOSED
           };
 
     }
@@ -44,11 +125,20 @@ public class Scene4Manager : MonoBehaviour
     public void StartMirrorScene()
     {
         kidsRoomDoor.OpenDoor(2f);
-        MoveManToPosition.Invoke(enterRoomStartPoint.position, kidbed.position);
+        MoveCharacterToPosition.Invoke(enterRoomStartPoint.position, kidbed.position);
         ManLookAt.Invoke(Camera.main.transform);
 
     }
+    public void StartBabySnatchedScene()
+    {
+        BabyChangeAnimation.Invoke("PickUp", 0);
 
+    }
 
+    IEnumerator executeafterntime(int n)
+    {
+        yield return new WaitForSeconds(n);
+
+    }
 
 }
