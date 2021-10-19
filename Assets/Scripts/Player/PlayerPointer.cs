@@ -31,5 +31,13 @@ public class PlayerPointer : MonoBehaviour
                 lastInteractable.DisableOutline();
             }
         }
+
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (lastHit)
+                lastInteractable.PerformInteractableAction();
+
+        }
     }
 }
