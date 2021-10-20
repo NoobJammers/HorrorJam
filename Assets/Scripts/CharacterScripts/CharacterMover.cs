@@ -12,7 +12,7 @@ public class CharacterMover : MonoBehaviour
     private NavMeshAgent agent;
 
     public Animator animator;
-    public Action reachedDestination;
+    public Action reachedDestination = () => { };
     // Start is called before the first frame update
     void Start()
     {
