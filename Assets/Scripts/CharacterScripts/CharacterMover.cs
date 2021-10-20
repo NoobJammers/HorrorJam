@@ -36,12 +36,13 @@ public class CharacterMover : MonoBehaviour
             }
         }
     }
-    public void GoToPoint(Vector3 startposition, Vector3 destination)
+    public void GoToPoint(Vector3 startposition, Vector3 destination, float animspeed = 1)
     {
         transform.position = startposition;
         transform.LookAt(destination);
         agent.isStopped = false;
         animator.Play(animationToPlay);
+        animator.speed = animspeed;
         agent.SetDestination(destination);
 
     }
@@ -52,7 +53,7 @@ public class CharacterMover : MonoBehaviour
     public void StopMoving()
     {
         reachedDestination.Invoke();
-
+        animator.speed = 1;
         agent.isStopped = true;
 
 

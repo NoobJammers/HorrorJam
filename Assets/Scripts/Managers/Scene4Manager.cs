@@ -13,7 +13,7 @@ public class Scene4Manager : MonoBehaviour
     {
 
     };
-
+    public System.Action<string> GeneralInteractionEvents = (string event) => { };
     /// <summary>
     /// BABY VARIABLES
     /// </summary>
@@ -126,6 +126,11 @@ public class Scene4Manager : MonoBehaviour
               //--> DOOR CLOSED
               //init stuff
           };
+        GeneralInteractionEvents += (string event1) =>
+        {
+
+
+        };
 
     }
 
@@ -138,9 +143,8 @@ public class Scene4Manager : MonoBehaviour
 
         baby_char_mover.reachedDestination += Kidnap;
         kidsRoomDoor.OpenDoor(2, true);
+        baby_char_mover.GoToPoint(baby_position_1.position, baby_position_2.position, 1.3f);
 
-        baby_char_mover.GoToPoint(baby_position_1.position, baby_position_2.position);
-        baby_char_mover.reachedDestination -= Kidnap;
 
         /*      MoveCharacterToPosition.Invoke(enterRoomStartPoint.position, kidbed.position);
               ManLookAt.Invoke(Camera.main.transform);*/
@@ -151,6 +155,7 @@ public class Scene4Manager : MonoBehaviour
         baby_switch_animation.switchtoanimation("sweep", 0, 1);
 
         devil_switch_animation.switchtoanimation("kidnap", 0, 1);
+        baby_char_mover.reachedDestination -= Kidnap;
     }
     public void StartBabySnatchedScene()
     {

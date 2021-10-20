@@ -11,6 +11,7 @@ public class CanvasManager : MonoBehaviour
     {
         instance = this;
     }
+
     public void SetInteractText(bool val)
     {
         if (val)
