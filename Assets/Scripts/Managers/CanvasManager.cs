@@ -1,11 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class CanvasManager : MonoBehaviour
 {
     static public CanvasManager instance;
-    [SerializeField] GameObject interactText, diary;
+
+    [Header("Narrative fields")]
+    [SerializeField] GameObject narrativeTextPanel;
+    public TextMeshProUGUI narrativeText;
+    [SerializeField] float textDisplayTime;
+
+    [Header("Misc")]
+    public GameObject interactText;
+    public GameObject diary;
 
     private void Awake()
     {
@@ -27,6 +36,16 @@ public class CanvasManager : MonoBehaviour
     }
 
 
+    public void SetText(string textToInsert)
+    {
+        narrativeText.text = textToInsert;
+        narrativeTextPanel.SetActive(true);
+        StartCoroutine(DisableText());
+    }
+    IEnumerator DisableText()
+    {
+        yield return new WaitForSeconds(textDisplayTime);
+        narrativeTextPanel.SetActive(false);
 
-
+    }
 }

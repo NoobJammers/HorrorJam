@@ -62,8 +62,13 @@ public class Scene4Manager : MonoBehaviour
     public CharacterMover man_char_mover;
     public CharacterHeadLook man_head_look;
     public CharacterSwitchAnimation man_switch_animation;
+    public Transform man_position_1;
+
+
     public float[] man_shoot_timestamps;
     public Transform maninitpos;
+
+
 
 
     /// <summary>
@@ -131,8 +136,14 @@ public class Scene4Manager : MonoBehaviour
           };
         GeneralInteractionEvents += (string event1) =>
         {
+            if (event1 == "ReadDiary")
+                SetDiary();
 
+            else if (event1 == "EndDiary")
+                DomesticViolence();
 
+            else if (event1 == "Bottle")
+                BottleCollected();
         };
 
     }
@@ -174,10 +185,23 @@ public class Scene4Manager : MonoBehaviour
         a.Invoke();
     }
 
-    public void SetDiary(bool value)
+    public void SetDiary()
     {
-        CanvasManager.instance.EnableDiary(value);
+        CanvasManager.instance.EnableDiary(true);
     }
 
+
+    public void DomesticViolence()
+    {
+        man_switch_animation.switchtoanimation("ThrowGlassBottleSingleFrame", 0, 1);
+        man_char_mover.GoToPoint(man_position_1.position, man_position_1.position);
+        wife_switch_animation.switchtoanimation("TerrifiedSingleFrame", 0, 1);
+        wife_char_mover.GoToPoint(wife_position_1.position, wife_position_1.position);
+    }
+
+    public void BottleCollected()
+    {
+        man_switch_animation.switchtoanimation("ThrowWithoutBottleSingleFrame", 0, 1);
+    }
 
 }
