@@ -13,7 +13,7 @@ public class Scene4Manager : MonoBehaviour
     {
 
     };
-    public System.Action<string> GeneralInteractionEvents = (string event) => { };
+    public System.Action<string> GeneralInteractionEvents = (string event1) => { };
     /// <summary>
     /// BABY VARIABLES
     /// </summary>
