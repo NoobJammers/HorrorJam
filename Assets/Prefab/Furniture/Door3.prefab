@@ -1586,7 +1586,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   door: {fileID: 8655874748814343588}
-  angleWhenOpened: 0
+  angleWhenOpened: -235
   angleWhenClosed: -117.97
 --- !u!1 &6103139691456789403
 GameObject:
