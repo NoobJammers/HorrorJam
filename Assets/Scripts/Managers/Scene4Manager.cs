@@ -22,9 +22,9 @@ public class Scene4Manager : MonoBehaviour
     public CharacterHeadLook baby_head_look;
     public CharacterSwitchAnimation baby_switch_animation;
 
-    [SerializeField] Transform baby_init_position;
-    [SerializeField] Transform baby_position_1;
-    [SerializeField] Transform baby_position_2;
+    public Transform baby_init_position;
+    public Transform baby_position_1;
+    public Transform baby_position_2;
     public Transform baby_position_3;
     /// <summary>
     /// DemonCrawler
@@ -63,6 +63,7 @@ public class Scene4Manager : MonoBehaviour
     public CharacterHeadLook man_head_look;
     public CharacterSwitchAnimation man_switch_animation;
     public float[] man_shoot_timestamps;
+    public Transform maninitpos;
 
 
     /// <summary>
@@ -106,6 +107,8 @@ public class Scene4Manager : MonoBehaviour
         instance = this;
         kidroomdoorlight.gameObject.SetActive(false);
         baby.transform.position = baby_init_position.position;
+        man.transform.position = maninitpos.position;
+
         GeneralEvent += (Collider collider) =>
           {
 
@@ -155,7 +158,9 @@ public class Scene4Manager : MonoBehaviour
         baby_switch_animation.switchtoanimation("sweep", 0, 1);
 
         devil_switch_animation.switchtoanimation("kidnap", 0, 1);
+
         baby_char_mover.reachedDestination -= Kidnap;
+        StartCoroutine(executeafterntime(2.15f, () => { kidsRoomDoor.CloseDoor(1); }));
     }
     public void StartBabySnatchedScene()
     {
@@ -163,7 +168,7 @@ public class Scene4Manager : MonoBehaviour
 
     }
 
-    IEnumerator executeafterntime(int n, Action a)
+    IEnumerator executeafterntime(float n, Action a)
     {
         yield return new WaitForSeconds(n);
         a.Invoke();
