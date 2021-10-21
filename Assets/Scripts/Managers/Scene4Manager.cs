@@ -171,7 +171,9 @@ public class Scene4Manager : SceneManager
         {
             if (timetopush)
             {
-                bookshelf1.push(bookshelf1.transform.forward, 200, bookshelf1.transform.position);
+                bookshelf1.push(bookshelf1.transform.right+bookshelf1.transform.forward, 1000, bookshelf1.transform.position);
+
+                
             }
             else
             {
@@ -198,7 +200,7 @@ public class Scene4Manager : SceneManager
         devil_switch_animation.switchtoanimation("kidnap", 0, 1);
 
         baby_char_mover.reachedDestination -= Kidnap;
-        StartCoroutine(executeafterntime(2.15f, () => { kidsRoomDoor.CloseDoor(0.5f); }));
+        StartCoroutine(executeafterntime(2.15f, () => { kidsRoomDoor.CloseDoor(0.5f); timetopush = true; }));
     }
 
 
