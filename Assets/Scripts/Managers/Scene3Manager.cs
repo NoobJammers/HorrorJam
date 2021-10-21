@@ -111,21 +111,16 @@ public class Scene3Manager : SceneManager
     /// WallWriting
     ///</summary>
 
-    ///<summary>
-    /// PostProcessingVolume
-    ///</summary>
+    public List<WallText> walltextList;
+
+
+
+
 
     ///<summary>
-    ///lights
+    /// Misc
     ///</summary>
-    ///
-
-    ///Book stuff
-    ///
-    public PushForceScript bookshelf1;
-    public Transform PushForceBookShelf1;
-    public Light kidroomdoorlight;
-    private bool timetopush = false, checkIfRendering = false;
+    private bool checkIfRendering = false;
 
 
 
@@ -231,7 +226,6 @@ public class Scene3Manager : SceneManager
 
             if ((pos.x > 0f && pos.x < 1f && pos.y > 0f && pos.y < 1f) && (Vector3.Dot(man.transform.forward, playerCamera.transform.forward) < 0f))
             {
-                Debug.Log("Yeet");
                 checkIfRendering = false;
                 StartCoroutine(executeafterntime(2f, () => { DoorClose(); }));
             }
@@ -278,7 +272,29 @@ public class Scene3Manager : SceneManager
     public void BottleCollected()
     {
         man_switch_animation.switchtoanimation("ThrowWithoutBottleSingleFrame", 0, 1);
+        foreach (WallText child in walltextList)
+        {
+            child.DisplayBloodText();
+        }
+        StartCoroutine(executeafterntime(7f, () => { StopBloodText(); }));
+
     }
 
+    public void StopBloodText()
+    {
+        foreach (WallText child in walltextList)
+        {
+            child.StopBloodText();
+        }
+
+        //Kill lights
+        //Disappear
+    }
+
+
+    // private void Start()
+    // {
+    //     BottleCollected();
+    // }
 
 }
