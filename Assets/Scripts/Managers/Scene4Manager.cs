@@ -112,8 +112,12 @@ public class Scene4Manager : MonoBehaviour
         instance = this;
         kidroomdoorlight.gameObject.SetActive(false);
         baby.transform.position = baby_init_position.position;
+        baby.transform.rotation = baby_init_position.rotation;
+        baby_switch_animation.switchtoanimation("standing", 0, 0);
         man.transform.position = maninitpos.position;
-
+        wife.transform.position = wife_position_1.position;
+        wife.transform.rotation = wife_position_1.rotation;
+        wife_switch_animation.switchtoanimation("womandead", 0, 1);
         GeneralEvent += (Collider collider) =>
           {
 
@@ -135,17 +139,17 @@ public class Scene4Manager : MonoBehaviour
               //--> DOOR CLOSED
               //init stuff
           };
-        GeneralInteractionEvents += (string event1) =>
-        {
-            if (event1 == "ReadDiary")
-                SetDiary();
+        /*        GeneralInteractionEvents += (string event1) =>
+                {
+                    if (event1 == "ReadDiary")
+                        SetDiary();
 
-            else if (event1 == "EndDiary")
-                DomesticViolence();
+                    else if (event1 == "EndDiary")
+                        DomesticViolence();
 
-            else if (event1 == "Bottle")
-                BottleCollected();
-        };
+                    else if (event1 == "Bottle")
+                        BottleCollected();
+                };*/
 
     }
 
@@ -158,7 +162,7 @@ public class Scene4Manager : MonoBehaviour
 
         baby_char_mover.reachedDestination += Kidnap;
 
-        baby_char_mover.GoToPoint(baby_position_1.position, baby_position_2.position, 1.3f);
+        baby_char_mover.GoToPoint(baby_position_1.position, baby_position_2.position, 0.8f);
 
 
         /*      MoveCharacterToPosition.Invoke(enterRoomStartPoint.position, kidbed.position);
@@ -192,17 +196,17 @@ public class Scene4Manager : MonoBehaviour
     }
 
 
-    public void DomesticViolence()
-    {
-        man_switch_animation.switchtoanimation("ThrowGlassBottleSingleFrame", 0, 1);
-        man_char_mover.GoToPoint(man_position_1.position, man_position_1.position);
-        wife_switch_animation.switchtoanimation("TerrifiedSingleFrame", 0, 1);
-        wife_char_mover.GoToPoint(wife_position_1.position, wife_position_1.position);
-    }
+    /*    public void DomesticViolence()
+        {
+            man_switch_animation.switchtoanimation("ThrowGlassBottleSingleFrame", 0, 1);
+            man_char_mover.GoToPoint(man_position_1.position, man_position_1.position);
+            wife_switch_animation.switchtoanimation("TerrifiedSingleFrame", 0, 1);
+            wife_char_mover.GoToPoint(wife_position_1.position, wife_position_1.position);
+        }
 
-    public void BottleCollected()
-    {
-        man_switch_animation.switchtoanimation("ThrowWithoutBottleSingleFrame", 0, 1);
-    }
+        public void BottleCollected()
+        {
+            man_switch_animation.switchtoanimation("ThrowWithoutBottleSingleFrame", 0, 1);
+        }*/
 
 }
