@@ -122,56 +122,63 @@ public class Scene4Manager : SceneManager
         wife.transform.rotation = wife_position_1.rotation;
         wife_switch_animation.switchtoanimation("womandead", 0, 1);
         kidsRoomDoor.CanOpen = false;
-        GeneralEvent += (Collider collider) =>
-          {
-
-              if (collider.tag == "MirrorTrigger")
-              {
-                  Destroy(collider.gameObject);
-                  bookshelf1.push(PushForceBookShelf1.forward, 40, PushForceBookShelf1.position);
-                  kidroomdoorlight.gameObject.SetActive(true);
-                  kidsRoomDoor.OpenDoor(1f, true);
-                  StartCoroutine(executeafterntime(1, () => { StartMirrorScene(); }));
 
 
-              }
-              if (collider.tag == "PickUpTrigger")
-              {
-                  Destroy(collider.gameObject);
-                  /* StartBabySnatchedScene();*/
-              }
-              //TODO: WHEN FIRST CROSSED THE THRESHOLD OF THE 4TH house TRIGGER
-              //--> DOOR CLOSED
-              //init stuff
-          };
-        GeneralInteractionEvents += (string event1) =>
-        {
-            if (event1 == "Pot")
-                CanvasManager.instance.EnableKey(true);
-            else if (event1 == "EndKey")
-            {
-                kidsRoomDoor.CanOpen = true;
-            }
-            else if (event1 == "Shelf")
-            {
-                if (timetopush)
-                {
-                    bookshelf1.push(bookshelf1.transform.forward, 200, bookshelf1.transform.position);
-                }
-                else
-                {
-                    CanvasManager.instance.SetInteractTextValue("");
-                }
-            }
-
-        };
-
+    }
+    private void OnEnable()
+    {
+        GeneralEvent += TriggerHandler;
+        GeneralInteractionEvents += InteractionEventHandler;
     }
 
     /// <summary>
     /// All individually occuring custom events, don't need a separate system.
     /// </summary>
+    public void TriggerHandler(Collider collider)
+    {
 
+
+        if (collider.tag == "MirrorTrigger")
+        {
+            Destroy(collider.gameObject);
+            bookshelf1.push(PushForceBookShelf1.forward, 40, PushForceBookShelf1.position);
+            kidroomdoorlight.gameObject.SetActive(true);
+            kidsRoomDoor.OpenDoor(1f, true);
+            StartCoroutine(executeafterntime(1, () => { StartMirrorScene(); }));
+
+
+        }
+        if (collider.tag == "PickUpTrigger")
+        {
+            Destroy(collider.gameObject);
+            /* StartBabySnatchedScene();*/
+        }
+        //TODO: WHEN FIRST CROSSED THE THRESHOLD OF THE 4TH house TRIGGER
+        //--> DOOR CLOSED
+        //init stuff
+
+    }
+
+    public void InteractionEventHandler(string event1)
+    {
+        if (event1 == "Pot")
+            CanvasManager.instance.EnableKey(true);
+        else if (event1 == "EndKey")
+        {
+            kidsRoomDoor.CanOpen = true;
+        }
+        else if (event1 == "Shelf")
+        {
+            if (timetopush)
+            {
+                bookshelf1.push(bookshelf1.transform.forward, 200, bookshelf1.transform.position);
+            }
+            else
+            {
+                CanvasManager.instance.SetInteractTextValue("");
+            }
+        }
+    }
     public void StartMirrorScene()
     {
 
@@ -225,7 +232,11 @@ public class Scene4Manager : SceneManager
             }
         }
     }
-
+    private void OnDisable()
+    {
+        GeneralEvent -= TriggerHandler;
+        GeneralInteractionEvents -= InteractionEventHandler;
+    }
 
 
     /*    public void DomesticViolence()
