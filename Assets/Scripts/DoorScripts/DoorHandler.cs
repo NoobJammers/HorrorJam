@@ -26,9 +26,10 @@ public class DoorHandler : MonoBehaviour
         }
     }
 
-    public void CloseDoor(float time)
+    public void CloseDoor(float time, bool playerCanOpenAgain = true)
     {
         door.transform.DOLocalRotate(Vector3.up * angleWhenClosed, time);
+        playerCanOpen = playerCanOpenAgain;
     }
 
     public void RattleDoor(float time)

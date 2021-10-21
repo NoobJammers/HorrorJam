@@ -1098,7 +1098,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   door: {fileID: 7918169655447436187}
-  angleWhenOpened: 255
+  angleWhenOpened: 275
   angleWhenClosed: 44.202
 --- !u!1 &3405551016512082923
 GameObject:
@@ -2211,7 +2211,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7918169655447436187}
   m_LocalRotation: {x: 3.1005856e-18, y: 0.37623948, z: -9.935796e-18, w: 0.9265225}
-  m_LocalPosition: {x: -0.48025322, y: 0.003999993, z: -0.10615954}
+  m_LocalPosition: {x: -0.556, y: 0.003999993, z: -0.184}
   m_LocalScale: {x: 1.24, y: 1.24, z: 1}
   m_Children:
   - {fileID: 6371031054437999541}

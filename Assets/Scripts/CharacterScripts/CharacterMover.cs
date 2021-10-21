@@ -58,4 +58,9 @@ public class CharacterMover : MonoBehaviour
 
 
     }
+
+    public void DisableNavMeshAgent()
+    {
+        agent.enabled = false;
+    }
 }
