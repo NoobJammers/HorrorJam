@@ -8,7 +8,7 @@ public class InteractableDiary : Interactable
     override public void PerformInteractableAction()
     {
         base.PerformInteractableAction();
-        Scene4Manager.instance.GeneralInteractionEvents("ReadDiary");
+        SceneManager.activeSceneManager.GeneralInteractionEvents("ReadDiary");
 
     }
 }

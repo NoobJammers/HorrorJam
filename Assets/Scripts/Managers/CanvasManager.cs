@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+using System;
 public class CanvasManager : MonoBehaviour
 {
     static public CanvasManager instance;
@@ -15,11 +15,18 @@ public class CanvasManager : MonoBehaviour
     [Header("Misc")]
     public GameObject interactText;
     public GameObject diary;
+    public GameObject key;
 
     private void Awake()
     {
         instance = this;
     }
+
+    public void SetInteractTextValue(string text)
+    {
+        interactText.GetComponent<TextMeshProUGUI>().text = text;
+    }
+
 
     public void SetInteractText(bool val)
     {
@@ -35,7 +42,10 @@ public class CanvasManager : MonoBehaviour
         diary.SetActive(val);
     }
 
-
+    public void EnableKey(bool val)
+    {
+        key.SetActive(val);
+    }
     public void SetText(string textToInsert)
     {
         narrativeText.text = textToInsert;

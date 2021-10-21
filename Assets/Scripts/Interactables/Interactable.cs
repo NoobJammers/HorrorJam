@@ -10,12 +10,14 @@ public class Interactable : MonoBehaviour
     public void EnableOutline()
     {
         outline.OutlineWidth = 6f;
+        SceneManager.activeSceneManager.WhatIsBeingHighlighted(gameObject);
         CanvasManager.instance.SetInteractText(true);
     }
 
     public void DisableOutline()
     {
         outline.OutlineWidth = 0f;
+        CanvasManager.instance.SetInteractTextValue("Interact[E]");
         CanvasManager.instance.SetInteractText(false);
 
 

@@ -285,13 +285,13 @@ public class Outline : MonoBehaviour
                 break;
 
             case Mode.OutlineVisible:
-                print(Time.time);
+
                 outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
-                print("after z " + Time.time);
+
                 outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.LessEqual);
-                print("after z second" + Time.time);
+
                 outlineFillMaterial.SetFloat("_OutlineWidth", outlineWidth);
-                print("after setfloat " + Time.time);
+
                 break;
 
             case Mode.OutlineHidden:

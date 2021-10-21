@@ -6,6 +6,8 @@ TagManager:
   tags:
   - MirrorTrigger
   - PickUpTrigger
+  - KidDoorHandle
+  - MainRoomHandle
   layers:
   - Default
   - TransparentFX

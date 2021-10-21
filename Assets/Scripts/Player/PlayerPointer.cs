@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerPointer : MonoBehaviour
 {
     [SerializeField] LayerMask layerMask;
-    bool lastHit = false, doOnce = true;
+    bool lastHit = false, doOnce = true, doOnceKey = true;
     Interactable lastInteractable;
 
 
@@ -38,11 +38,24 @@ public class PlayerPointer : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            CanvasManager.instance.EnableDiary(false);
-            if (doOnce)
+            if (CanvasManager.instance.diary.activeInHierarchy)
             {
-                doOnce = false;
-                Scene4Manager.instance.GeneralInteractionEvents?.Invoke("EndDiary");
+                CanvasManager.instance.EnableDiary(false);
+
+                if (doOnce)
+                {
+                    doOnce = false;
+                    SceneManager.activeSceneManager.GeneralInteractionEvents?.Invoke("EndDiary");
+                }
+            }
+            else if (CanvasManager.instance.key.activeInHierarchy)
+            {
+                CanvasManager.instance.EnableKey(false);
+                if (doOnceKey)
+                {
+                    doOnceKey = false;
+                    Scene4Manager.activeSceneManager.GeneralInteractionEvents?.Invoke("EndKey");
+                }
             }
         }
     }

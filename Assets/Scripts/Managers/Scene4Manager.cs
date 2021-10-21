@@ -3,17 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.Events;
-public class Scene4Manager : MonoBehaviour
+public class Scene4Manager : SceneManager
 {
 
-    static public Scene4Manager instance;
+    /* static public Scene4Manager instance;*/
 
 
-    public System.Action<Collider> GeneralEvent = (Collider collider) =>
-    {
 
-    };
-    public System.Action<string> GeneralInteractionEvents = (string event1) => { };
     /// <summary>
     /// BABY VARIABLES
     /// </summary>
@@ -106,10 +102,17 @@ public class Scene4Manager : MonoBehaviour
     ///<summary>
     ///lights
     ///</summary>
+    ///
+
+    ///Book stuff
+    ///
+    public PushForceScript bookshelf1;
+    public Transform PushForceBookShelf1;
     public Light kidroomdoorlight;
+    private bool timetopush = false;
     private void Awake()
     {
-        instance = this;
+
         kidroomdoorlight.gameObject.SetActive(false);
         baby.transform.position = baby_init_position.position;
         baby.transform.rotation = baby_init_position.rotation;
@@ -118,12 +121,14 @@ public class Scene4Manager : MonoBehaviour
         wife.transform.position = wife_position_1.position;
         wife.transform.rotation = wife_position_1.rotation;
         wife_switch_animation.switchtoanimation("womandead", 0, 1);
+        kidsRoomDoor.CanOpen = false;
         GeneralEvent += (Collider collider) =>
           {
 
               if (collider.tag == "MirrorTrigger")
               {
                   Destroy(collider.gameObject);
+                  bookshelf1.push(PushForceBookShelf1.forward, 40, PushForceBookShelf1.position);
                   kidroomdoorlight.gameObject.SetActive(true);
                   kidsRoomDoor.OpenDoor(1f, true);
                   StartCoroutine(executeafterntime(1, () => { StartMirrorScene(); }));
@@ -139,17 +144,27 @@ public class Scene4Manager : MonoBehaviour
               //--> DOOR CLOSED
               //init stuff
           };
-        /*        GeneralInteractionEvents += (string event1) =>
+        GeneralInteractionEvents += (string event1) =>
+        {
+            if (event1 == "Pot")
+                CanvasManager.instance.EnableKey(true);
+            else if (event1 == "EndKey")
+            {
+                kidsRoomDoor.CanOpen = true;
+            }
+            else if (event1 == "Shelf")
+            {
+                if (timetopush)
                 {
-                    if (event1 == "ReadDiary")
-                        SetDiary();
+                    bookshelf1.push(bookshelf1.transform.forward, 200, bookshelf1.transform.position);
+                }
+                else
+                {
+                    CanvasManager.instance.SetInteractTextValue("");
+                }
+            }
 
-                    else if (event1 == "EndDiary")
-                        DomesticViolence();
-
-                    else if (event1 == "Bottle")
-                        BottleCollected();
-                };*/
+        };
 
     }
 
@@ -178,11 +193,7 @@ public class Scene4Manager : MonoBehaviour
         baby_char_mover.reachedDestination -= Kidnap;
         StartCoroutine(executeafterntime(2.15f, () => { kidsRoomDoor.CloseDoor(0.5f); }));
     }
-    public void StartBabySnatchedScene()
-    {
-        /*        BabyChangeAnimation.Invoke("PickUp", 0);*/
 
-    }
 
     IEnumerator executeafterntime(float n, Action a)
     {
@@ -190,10 +201,31 @@ public class Scene4Manager : MonoBehaviour
         a.Invoke();
     }
 
-    public void SetDiary()
+    public override void WhatIsBeingHighlighted(GameObject g)
     {
-        CanvasManager.instance.EnableDiary(true);
+        base.WhatIsBeingHighlighted(g);
+        if (g.tag == "KidDoorHandle")
+        {
+            if (kidsRoomDoor.CanOpen)
+                CanvasManager.instance.SetInteractTextValue("Open Door");
+            else
+                CanvasManager.instance.SetInteractTextValue("Door Locked");
+
+        }
+        if (g.name == "BookShelf")
+
+        {
+            if (timetopush)
+            {
+                CanvasManager.instance.SetInteractTextValue("Push");
+            }
+            else
+            {
+                CanvasManager.instance.SetInteractTextValue("");
+            }
+        }
     }
+
 
 
     /*    public void DomesticViolence()
