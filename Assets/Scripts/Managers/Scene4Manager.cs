@@ -121,6 +121,7 @@ public class Scene4Manager : MonoBehaviour
               {
                   Destroy(collider.gameObject);
                   kidroomdoorlight.gameObject.SetActive(true);
+                  kidsRoomDoor.OpenDoor(1f, true);
                   StartCoroutine(executeafterntime(1, () => { StartMirrorScene(); }));
 
 
@@ -156,7 +157,7 @@ public class Scene4Manager : MonoBehaviour
     {
 
         baby_char_mover.reachedDestination += Kidnap;
-        kidsRoomDoor.OpenDoor(2, true);
+
         baby_char_mover.GoToPoint(baby_position_1.position, baby_position_2.position, 1.3f);
 
 
@@ -171,7 +172,7 @@ public class Scene4Manager : MonoBehaviour
         devil_switch_animation.switchtoanimation("kidnap", 0, 1);
 
         baby_char_mover.reachedDestination -= Kidnap;
-        StartCoroutine(executeafterntime(2.15f, () => { kidsRoomDoor.CloseDoor(1); }));
+        StartCoroutine(executeafterntime(2.15f, () => { kidsRoomDoor.CloseDoor(0.5f); }));
     }
     public void StartBabySnatchedScene()
     {

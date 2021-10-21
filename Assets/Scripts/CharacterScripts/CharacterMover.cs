@@ -27,7 +27,7 @@ public class CharacterMover : MonoBehaviour
         if (agent)
         {
             agent.speed = speed;
-            if (!agent.isStopped)
+            if (agent.isOnNavMesh && !agent.isStopped)
             {
                 if ((transform.position - agent.destination).magnitude < 0.2f)
                 {
