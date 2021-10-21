@@ -7,7 +7,7 @@ public class DoorHandler : MonoBehaviour
 {
     [SerializeField] GameObject door;
     [SerializeField] float angleWhenOpened, angleWhenClosed;
-    bool playerCanOpen = true;
+    [SerializeField] bool playerCanOpen = true;
     public bool CanOpen { get { return playerCanOpen; } set { playerCanOpen = value; } }
 
 
@@ -34,7 +34,7 @@ public class DoorHandler : MonoBehaviour
 
     public void RattleDoor(float time)
     {
-        door.transform.DOShakeRotation(time, 5f, 1, 10);
+        door.transform.DOShakeRotation(time, 5f, 1, 10); //Rework
     }
 
 }

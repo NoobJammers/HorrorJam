@@ -27,6 +27,7 @@ public class SceneManager : MonoBehaviour
         if (sceneindex >= 1)
         {
             scenemanagers[sceneindex - 1].enabled = false;
+
         }
         activeSceneManager.enabled = true;
     }

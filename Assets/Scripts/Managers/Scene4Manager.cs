@@ -171,9 +171,9 @@ public class Scene4Manager : SceneManager
         {
             if (timetopush)
             {
-                bookshelf1.push(bookshelf1.transform.right+bookshelf1.transform.forward, 1000, bookshelf1.transform.position);
+                bookshelf1.push(bookshelf1.transform.right + bookshelf1.transform.forward, 1000, bookshelf1.transform.position);
 
-                
+
             }
             else
             {

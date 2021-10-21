@@ -5,13 +5,16 @@ using UnityEngine;
 public class Interactable : MonoBehaviour
 {
     [SerializeField] Outline outline;
-
+    public bool isInteractable = true;
 
     public void EnableOutline()
     {
-        outline.OutlineWidth = 6f;
-        SceneManager.activeSceneManager.WhatIsBeingHighlighted(gameObject);
-        CanvasManager.instance.SetInteractText(true);
+        if (isInteractable)
+        {
+            outline.OutlineWidth = 6f;
+            SceneManager.activeSceneManager.WhatIsBeingHighlighted(gameObject);
+            CanvasManager.instance.SetInteractText(true);
+        }
     }
 
     public void DisableOutline()

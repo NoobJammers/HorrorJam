@@ -10,10 +10,8 @@ public class Scene3Manager : SceneManager
 
 
 
-    /// <summary>
-    /// BABY VARIABLES
-    /// </summary>
-    public GameObject baby;
+    [Header("Baby")]
+    public GameObject babyGameObject;
     public CharacterMover baby_char_mover;
     public CharacterHeadLook baby_head_look;
     public CharacterSwitchAnimation baby_switch_animation;
@@ -24,11 +22,8 @@ public class Scene3Manager : SceneManager
     public Transform baby_position_3;
 
 
-    /// <summary>
-    /// Wife
-    /// </summary>
-    /// 
-    public GameObject wife;
+    [Header("Wife")]
+    public GameObject wifeGameObject;
     public CharacterMover wife_char_mover;
     public CharacterHeadLook wife_head_look;
     public CharacterSwitchAnimation wife_switch_animation;
@@ -40,10 +35,10 @@ public class Scene3Manager : SceneManager
 
     public Transform wife_final_position;
 
-    /// <summary>
-    /// Man
-    /// </summary>
-    public GameObject man;
+
+
+    [Header("Man")]
+    public GameObject manGameObject;
     public CharacterMover man_char_mover;
     public CharacterHeadLook man_head_look;
     public CharacterSwitchAnimation man_switch_animation;
@@ -53,64 +48,48 @@ public class Scene3Manager : SceneManager
 
 
 
-    /// <summary>
-    /// DemonCrawler
-    /// </summary>
-    public GameObject demoncrawler_one_off;
-    public CharacterSwitchAnimation demoncrawler_one_off_switch_animation;
-    [SerializeField] Transform demoncrawler_one_off_finalposition;
+    // [Header("Demon Crawler")]
+    // public GameObject demoncrawler_one_off;
+    // public CharacterSwitchAnimation demoncrawler_one_off_switch_animation;
+    // [SerializeField] Transform demoncrawler_one_off_finalposition;
 
-    /// <summary>
-    /// Doors
-    /// </summary>
 
+
+    [Header("Doors")]
+    public DoorHandler exitDoor;
     public DoorHandler masterBedroomDoor;
 
 
 
-    /// <summary>
-    /// FURNITURE
-    /// </summary>
-    public GameObject couch, table;
+    [Header("Furniture")]
+    public GameObject couch;
+    public GameObject table;
     public Transform couch_position;
     public Transform table_position;
 
 
 
-    /// <summary>
-    /// PLAYER
-    /// </summary>
+    [Header("Player")]
     public GameObject playerCamera;
 
 
-    /// <summary>
-    /// DEVIL
-    /// </summary>
-
-    public GameObject devil;
-    public CharacterMover devil_char_mover;
-    public CharacterHeadLook devil_head_look;
-    public CharacterSwitchAnimation devil_switch_animation;
-    public Transform demon_init_position;
-    public Transform demon_baby_position;
-
-    /// <summary>
-    /// DEMON SPAWNER
-    /// </summary>
-    /// 
-
-    DemonSpawner spawner;
-    Transform[] spawnerpoints;
+    // [Header("Devil")]
+    // public GameObject devil;
+    // public CharacterMover devil_char_mover;
+    // public CharacterHeadLook devil_head_look;
+    // public CharacterSwitchAnimation devil_switch_animation;
+    // public Transform demon_init_position;
+    // public Transform demon_baby_position;
 
 
-    /// <summary>
-    /// TV
-    /// </summary>
 
-    ///<summary>
-    /// WallWriting
-    ///</summary>
+    // [Header("Demon Spawner")]
+    // DemonSpawner spawner;
+    // Transform[] spawnerpoints;
 
+
+
+    [Header("Walls to write upon")]
     public List<WallText> walltextList;
 
 
@@ -126,10 +105,10 @@ public class Scene3Manager : SceneManager
 
     private void Awake()
     {
-        baby.transform.position = baby_init_position.position;
+        babyGameObject.transform.position = baby_init_position.position;
         // man_char_mover.DisableNavMeshAgent();
-        man.transform.position = man_init_pos.position;
-        wife.transform.position = wife_init_position.position;
+        manGameObject.transform.position = man_init_pos.position;
+        wifeGameObject.transform.position = wife_init_position.position;
     }
     private void OnEnable()
     {
@@ -222,9 +201,9 @@ public class Scene3Manager : SceneManager
     {
         if (checkIfRendering)
         {
-            Vector2 pos = Camera.main.WorldToViewportPoint(man.transform.position);
+            Vector2 pos = Camera.main.WorldToViewportPoint(manGameObject.transform.position);
 
-            if ((pos.x > 0f && pos.x < 1f && pos.y > 0f && pos.y < 1f) && (Vector3.Dot(man.transform.forward, playerCamera.transform.forward) < 0f))
+            if ((pos.x > 0f && pos.x < 1f && pos.y > 0f && pos.y < 1f) && (Vector3.Dot(manGameObject.transform.forward, playerCamera.transform.forward) < 0f))
             {
                 checkIfRendering = false;
                 StartCoroutine(executeafterntime(2f, () => { DoorClose(); }));
@@ -234,8 +213,8 @@ public class Scene3Manager : SceneManager
 
     void DoorOpen()
     {
-        man.transform.position = man_position_1.position;
-        man.transform.rotation = man_position_1.rotation;
+        manGameObject.transform.position = man_position_1.position;
+        manGameObject.transform.rotation = man_position_1.rotation;
         masterBedroomDoor.OpenDoor(0f, true);
         checkIfRendering = true;
     }
@@ -250,11 +229,11 @@ public class Scene3Manager : SceneManager
     void DomesticViolence()
     {
         man_switch_animation.switchtoanimation("ThrowGlassBottleSingleFrame", 0, 1);
-        man.transform.position = man_position_2.position;
-        man.transform.rotation = man_position_2.rotation;
+        manGameObject.transform.position = man_position_2.position;
+        manGameObject.transform.rotation = man_position_2.rotation;
         wife_switch_animation.switchtoanimation("TerrifiedSingleFrame", 0, 1);
-        wife.transform.position = wife_position_1.position;
-        wife.transform.rotation = wife_position_1.rotation;
+        wifeGameObject.transform.position = wife_position_1.position;
+        wifeGameObject.transform.rotation = wife_position_1.rotation;
         couch.transform.position = couch_position.position;
         couch.transform.rotation = couch_position.rotation;
         table.transform.position = table_position.position;
@@ -285,6 +264,7 @@ public class Scene3Manager : SceneManager
         foreach (WallText child in walltextList)
         {
             child.StopBloodText();
+            exitDoor.CanOpen = true;
         }
 
         //Kill lights

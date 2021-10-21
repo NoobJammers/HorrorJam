@@ -1264,6 +1264,7 @@ MonoBehaviour:
   door: {fileID: 8655874748814343588}
   angleWhenOpened: -235
   angleWhenClosed: -117.97
+  playerCanOpen: 0
 --- !u!1 &6394430632108018266
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ TagManager:
   - PickUpTrigger
   - KidDoorHandle
   - MainRoomHandle
+  - BulbTrigger
   layers:
   - Default
   - TransparentFX
