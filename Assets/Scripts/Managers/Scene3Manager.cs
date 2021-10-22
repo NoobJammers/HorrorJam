@@ -219,7 +219,7 @@ public class Scene3Manager : SceneManager
             if ((pos.x > 0f && pos.x < 1f && pos.y > 0f && pos.y < 1f) && (Vector3.Dot(devilGameObject.transform.forward, playerCamera.transform.forward) < 0f))
             {
                 checkIfRenderingDevil = false;
-                StartCoroutine(executeafterntime(2f, () => { DevilDisappear(); }));
+                StartCoroutine(executeafterntime(0.5f, () => { DevilClap(); }));
             }
         }
 
@@ -264,12 +264,15 @@ public class Scene3Manager : SceneManager
 
     public void BottleCollected()
     {
-        man_switch_animation.switchtoanimation("ThrowWithoutBottleSingleFrame", 0, 1);
+        man_switch_animation.switchtoanimation("ThrowWithoutBottleSingleFrame", 0, 1f);
         babyGameObject.transform.position = baby_position_1.position;
         babyGameObject.transform.rotation = baby_position_1.rotation;
-        baby_switch_animation.switchtoanimation("BabyWallPeak", 0, 1);
+        baby_switch_animation.switchtoanimation("BabyWallPeak", 0, 1f);
         devilGameObject.transform.position = devil_position_1.position;
         devilGameObject.transform.rotation = devil_position_1.rotation;
+        devil_switch_animation.switchtoanimation("StandingClapIdle", 0, 1f);
+
+        checkIfRenderingDevil = true;
 
         foreach (WallText child in walltextList)
         {
@@ -293,7 +296,10 @@ public class Scene3Manager : SceneManager
     }
 
 
-
+    public void DevilClap()
+    {
+        devil_switch_animation.switchtoanimation("StandingClap", 0, 1f);
+    }
     public void DevilDisappear()
     {
 
