@@ -5,14 +5,40 @@ using UnityEngine;
 public class CharacterHeadLook : MonoBehaviour
 {
     public GameObject NeckBone;
-
+    public bool screweduplocaltransform;
+    private bool keeplooking;
     private void Start()
     {
 
     }
     public void lookAt(Transform t)
     {
-        NeckBone.transform.rotation = Quaternion.LookRotation((Camera.main.transform.position - NeckBone.transform.position).normalized, Vector3.up) * Quaternion.Euler(-90, 0, 0) * Quaternion.Euler(0, 90, 0);
+        if (!screweduplocaltransform)
+            NeckBone.transform.rotation = Quaternion.LookRotation((Camera.main.transform.position - NeckBone.transform.position).normalized, Vector3.up) * Quaternion.Euler(-90, 0, 0) * Quaternion.Euler(0, 90, 0);
+        else
+        {
+            NeckBone.transform.rotation = Quaternion.LookRotation((Camera.main.transform.position - NeckBone.transform.position).normalized, Vector3.up);
+        }
+    }
 
+    private void Update()
+    {
+        if (keeplooking)
+        {
+            lookAt(null);
+        }
+    }
+
+
+    public void startlookingatplayer()
+    {
+        keeplooking = true;
+
+    }
+
+    public void stoplookingatplayer()
+    {
+
+        keeplooking = false;
     }
 }
