@@ -73,13 +73,13 @@ public class Scene3Manager : SceneManager
     public GameObject playerCamera;
 
 
-    // [Header("Devil")]
-    // public GameObject devil;
-    // public CharacterMover devil_char_mover;
-    // public CharacterHeadLook devil_head_look;
-    // public CharacterSwitchAnimation devil_switch_animation;
-    // public Transform demon_init_position;
-    // public Transform demon_baby_position;
+    [Header("Devil")]
+    public GameObject devilGameObject;
+    public CharacterMover devil_char_mover;
+    public CharacterHeadLook devil_head_look;
+    public CharacterSwitchAnimation devil_switch_animation;
+    public Transform devil_init_position;
+    public Transform devil_position_1;
 
 
 
@@ -99,7 +99,7 @@ public class Scene3Manager : SceneManager
     ///<summary>
     /// Misc
     ///</summary>
-    private bool checkIfRendering = false;
+    private bool checkIfRenderingMan = false, checkIfRenderingDevil = false;
 
 
 
@@ -113,6 +113,7 @@ public class Scene3Manager : SceneManager
         // man_char_mover.DisableNavMeshAgent();
         manGameObject.transform.position = man_init_pos.position;
         wifeGameObject.transform.position = wife_init_position.position;
+        devilGameObject.transform.position = devil_init_position.position;
         GeneralEvent += TriggerHandler;
         GeneralInteractionEvents += InteractionEventHandler;
     }
@@ -200,16 +201,28 @@ public class Scene3Manager : SceneManager
 
     private void Update()
     {
-        if (checkIfRendering)
+        if (checkIfRenderingMan)
         {
             Vector2 pos = Camera.main.WorldToViewportPoint(manGameObject.transform.position);
 
             if ((pos.x > 0f && pos.x < 1f && pos.y > 0f && pos.y < 1f) && (Vector3.Dot(manGameObject.transform.forward, playerCamera.transform.forward) < 0f))
             {
-                checkIfRendering = false;
+                checkIfRenderingMan = false;
                 StartCoroutine(executeafterntime(2f, () => { DoorClose(); }));
             }
         }
+
+        if (checkIfRenderingDevil)
+        {
+            Vector2 pos = Camera.main.WorldToViewportPoint(devilGameObject.transform.position);
+
+            if ((pos.x > 0f && pos.x < 1f && pos.y > 0f && pos.y < 1f) && (Vector3.Dot(devilGameObject.transform.forward, playerCamera.transform.forward) < 0f))
+            {
+                checkIfRenderingDevil = false;
+                StartCoroutine(executeafterntime(2f, () => { DevilDisappear(); }));
+            }
+        }
+
     }
 
     void DoorOpen()
@@ -217,7 +230,7 @@ public class Scene3Manager : SceneManager
         manGameObject.transform.position = man_position_1.position;
         manGameObject.transform.rotation = man_position_1.rotation;
         masterBedroomDoor.OpenDoor(0f, true);
-        checkIfRendering = true;
+        checkIfRenderingMan = true;
     }
 
     void DoorClose()
@@ -252,6 +265,12 @@ public class Scene3Manager : SceneManager
     public void BottleCollected()
     {
         man_switch_animation.switchtoanimation("ThrowWithoutBottleSingleFrame", 0, 1);
+        babyGameObject.transform.position = baby_position_1.position;
+        babyGameObject.transform.rotation = baby_position_1.rotation;
+        baby_switch_animation.switchtoanimation("BabyWallPeak", 0, 1);
+        devilGameObject.transform.position = devil_position_1.position;
+        devilGameObject.transform.rotation = devil_position_1.rotation;
+
         foreach (WallText child in walltextList)
         {
             child.DisplayBloodText();
@@ -268,8 +287,16 @@ public class Scene3Manager : SceneManager
             exitDoor.CanOpen = true;
         }
 
+
         //Kill lights
         //Disappear
+    }
+
+
+
+    public void DevilDisappear()
+    {
+
     }
 
 
