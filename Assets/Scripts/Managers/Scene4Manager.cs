@@ -228,8 +228,10 @@ public class Scene4Manager : SceneManager
                 wife.transform.position = wife_position_2.position;
                 wife.transform.forward = wife_position_2.forward;
                 wife_switch_animation.switchtoanimation("ghost", 0, 0);
+                StartCoroutine(executeafterntime(7.5f, () => { wiferoomdoor.OpenDoor(0.5f, true); wiferoomdoor.CanOpen = true; }));
                 wife.transform.DOLocalMoveZ(wife_position_3.position.z, 15).SetEase(Ease.InOutSine).OnComplete(() =>
                 {
+
                     wife.transform.DOLocalRotate(Vector3.up * 0, 4).OnComplete(() => { wife_switch_animation.switchtoanimation("ghost_point", 0, 1f); });
 
                 });
@@ -255,6 +257,13 @@ public class Scene4Manager : SceneManager
             else
                 CanvasManager.instance.SetInteractTextValue("Door Locked");
 
+        }
+        if (g.tag == "MainRoomHandle")
+        {
+            if (wiferoomdoor.CanOpen)
+                CanvasManager.instance.SetInteractTextValue("Open Door");
+            else
+                CanvasManager.instance.SetInteractTextValue("Door Locked");
         }
         if (g.name == "BookShelf")
 
