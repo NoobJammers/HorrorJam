@@ -21,6 +21,13 @@ public class WallText : MonoBehaviour
     {
         shouldRepeat = false;
         StartCoroutine(SmalDelay());
+
+        foreach (SpriteRenderer child in murderList)
+        {
+            child.DOFade(0f, 0f);
+            ;
+        }
+
     }
 
 
@@ -40,7 +47,6 @@ public class WallText : MonoBehaviour
             foreach (SpriteRenderer child in murderList)
             {
                 child.gameObject.SetActive(false);
-                child.DOFade(1f, 0f);
                 child.transform.localPosition = new Vector3(
                     // Random.Range(0.796f, 2.18f),
                     Random.Range(0f, 3f),
@@ -60,7 +66,10 @@ public class WallText : MonoBehaviour
                 yield return new WaitForSeconds(newWaitTime);
 
             }
-            waitTime /= 3f;
+            if (waitTime > 0.05f)
+            {
+                waitTime /= 3f;
+            }
         }
     }
 }

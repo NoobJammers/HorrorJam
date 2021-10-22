@@ -18,8 +18,6 @@ public class Scene3Manager : SceneManager
 
     public Transform baby_init_position;
     public Transform baby_position_1;
-    public Transform baby_position_2;
-    public Transform baby_position_3;
 
 
     [Header("Wife")]
@@ -31,9 +29,7 @@ public class Scene3Manager : SceneManager
 
     public Transform wife_position_1;
     public Transform wife_position_2;
-    public Transform wife_position_3;
 
-    public Transform wife_final_position;
 
 
 
@@ -94,11 +90,12 @@ public class Scene3Manager : SceneManager
 
 
 
+    [Header("Lights")]
+    public List<Light> lights;
 
-
-    ///<summary>
-    /// Misc
-    ///</summary>
+    [Header("Misc")]
+    public GameObject blood;
+    public GameObject glass, bottle;
     private bool checkIfRenderingMan = false, checkIfRenderingDevil = false;
 
 
@@ -252,15 +249,9 @@ public class Scene3Manager : SceneManager
         couch.transform.rotation = couch_position.rotation;
         table.transform.position = table_position.position;
         table.transform.rotation = table_position.rotation;
+        glass.SetActive(false);
+        bottle.SetActive(false);
     }
-    // IEnumerator DomesticViolence()
-    // {
-    //     yield return new WaitForSeconds(1f);
-    //     man_switch_animation.switchtoanimation("ThrowGlassBottleSingleFrame", 0, 1);
-    //     man_char_mover.GoToPoint(man_position_1.position, man_position_1.position);
-    //     wife_switch_animation.switchtoanimation("TerrifiedSingleFrame", 0, 1);
-    //     wife_char_mover.GoToPoint(wife_position_1.position, wife_position_1.position);
-    // }
 
     public void BottleCollected()
     {
@@ -278,33 +269,41 @@ public class Scene3Manager : SceneManager
         {
             child.DisplayBloodText();
         }
-        StartCoroutine(executeafterntime(7f, () => { StopBloodText(); }));
 
     }
 
-    public void StopBloodText()
+
+
+
+    public void DevilClap()
     {
+        devil_switch_animation.switchtoanimation("StandingClap", 0, 1f);
+        StartCoroutine(executeafterntime(2f, () => { DevilDisappear(); }));
+    }
+    public void DevilDisappear()
+    {
+
+        SetAllLights(false);
+
+        //Stop blood text
         foreach (WallText child in walltextList)
         {
             child.StopBloodText();
             exitDoor.CanOpen = true;
         }
 
-
-        //Kill lights
-        //Disappear
+        devilGameObject.transform.position = devil_init_position.position;
+        manGameObject.transform.position = man_init_pos.position;
+        wife_switch_animation.switchtoanimation("womandead", 0, 1f);
+        wifeGameObject.transform.position = wife_position_2.position;
+        blood.SetActive(true);
+        StartCoroutine(executeafterntime(2f, () => { SetAllLights(true); }));
     }
-
-
-    public void DevilClap()
+    public void SetAllLights(bool val)
     {
-        devil_switch_animation.switchtoanimation("StandingClap", 0, 1f);
+        foreach (Light child in lights)
+            child.enabled = val;
     }
-    public void DevilDisappear()
-    {
-
-    }
-
 
     // private void Start()
     // {
