@@ -628,6 +628,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 1276879746280339854}
+  isInteractable: 1
   doorHandler: {fileID: 3442690914491793424}
 --- !u!114 &1276879746280339854
 MonoBehaviour:
@@ -1100,6 +1101,7 @@ MonoBehaviour:
   door: {fileID: 7918169655447436187}
   angleWhenOpened: 275
   angleWhenClosed: 44.202
+  playerCanOpen: 1
 --- !u!1 &3405551016512082923
 GameObject:
   m_ObjectHideFlags: 0

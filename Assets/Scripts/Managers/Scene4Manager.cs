@@ -65,7 +65,7 @@ public class Scene4Manager : SceneManager
 
     public float[] man_shoot_timestamps;
     public Transform maninitpos;
-
+    public Transform manfinalposition;
 
 
 
@@ -156,7 +156,24 @@ public class Scene4Manager : SceneManager
             kidroomdoorlight.gameObject.SetActive(true);
             kidsRoomDoor.OpenDoor(1f, true);
             StartCoroutine(executeafterntime(1, () => { StartMirrorScene(); }));
+            kidsRoomDoor.doorOpened += (bool canopen) =>
+            {
+                if (canopen)
+                {
+                    baby.transform.GetComponent<NavMeshAgent>().enabled = false;
+                    wife.transform.position = wife_final_position.position;
+                    wife.transform.forward = wife_final_position.transform.forward;
+                    wife_switch_animation.switchtoanimation("standing", 0, 0);
 
+                    man.transform.position = manfinalposition.position;
+                    man.transform.forward = manfinalposition.transform.forward;
+                    man_switch_animation.switchtoanimation("standing", 0, 0);
+
+                    baby.transform.position = baby_position_3.transform.position;
+                    baby.transform.forward = baby_position_3.transform.forward;
+                    baby_switch_animation.switchtoanimation("standing", 0, 0);
+                }
+            };
 
         }
         if (collider.tag == "PickUpTrigger")
@@ -178,7 +195,7 @@ public class Scene4Manager : SceneManager
         {
             timetopush = true;
             kidsRoomDoor.CanOpen = true;
-            wife.transform.position = wife_final_position.position;
+            wife.transform.position = wife_final_position.position + Vector3.up * 10;
             wife.transform.forward = wife_final_position.forward;
             kidroomdoorlight.gameObject.SetActive(true);
         }
@@ -218,7 +235,11 @@ public class Scene4Manager : SceneManager
         StartCoroutine(executeafterntime(1f, () =>
         {
             kidsRoomDoor.CloseDoor(0.5f, false);
-            StartCoroutine(executeafterntime(0.5f, () => { kidroomdoorlight.gameObject.SetActive(false); }));
+            StartCoroutine(executeafterntime(0.5f, () =>
+            {
+                kidroomdoorlight.gameObject.SetActive(false);
+                Destroy(demoncrawler_one_off.gameObject);
+            }));
             StartCoroutine(executeafterntime(2f, () =>
             {
 
