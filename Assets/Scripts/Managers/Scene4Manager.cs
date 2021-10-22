@@ -135,6 +135,7 @@ public class Scene4Manager : SceneManager
         wife.transform.rotation = wife_position_1.rotation;
         wife_switch_animation.switchtoanimation("womandead", 0, 1);
         kidsRoomDoor.CanOpen = false;
+        wiferoomdoor.CanOpen = false;
         RenderSettings.ambientLight = new Color(0.13f, 0.13f, 0.13f, 0);
         GeneralEvent += TriggerHandler;
         GeneralInteractionEvents += InteractionEventHandler;
@@ -229,7 +230,7 @@ public class Scene4Manager : SceneManager
                 wife_switch_animation.switchtoanimation("ghost", 0, 0);
                 wife.transform.DOLocalMoveZ(wife_position_3.position.z, 15).SetEase(Ease.InOutSine).OnComplete(() =>
                 {
-                    wife.transform.DOLocalRotate(Vector3.up * 0, 4).OnComplete(() => { wife_switch_animation.switchtoanimation("ghost_point", 0, 4); });
+                    wife.transform.DOLocalRotate(Vector3.up * 0, 4).OnComplete(() => { wife_switch_animation.switchtoanimation("ghost_point", 0, 1f); });
 
                 });
             }));
