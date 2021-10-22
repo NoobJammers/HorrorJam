@@ -26,6 +26,9 @@ public class Scene4Manager : SceneManager
     public Transform baby_position_1;
     public Transform baby_position_2;
     public Transform baby_position_3;
+    public GameObject baby_DEVILEYES;
+
+
     /// <summary>
     /// DemonCrawler
     /// </summary>
@@ -54,6 +57,7 @@ public class Scene4Manager : SceneManager
     public Transform wife_position_3;
 
     public Transform wife_final_position;
+    public GameObject wife_DEVILEYES;
 
     /// <summary>
     /// Man
@@ -68,6 +72,7 @@ public class Scene4Manager : SceneManager
     public float[] man_shoot_timestamps;
     public Transform maninitpos;
     public Transform manfinalposition;
+    public GameObject man_DEVILEYES;
 
 
 
@@ -188,9 +193,14 @@ public class Scene4Manager : SceneManager
 
                     cad.colorFilter.Override(new Color(1, 0, 0));
 
-                    wife.transform.Find("DEVILEYES").gameObject.SetActive(true);
-                    man.transform.Find("DEVILEYES").gameObject.SetActive(true);
-                    baby.transform.Find("DEVILEYES").gameObject.SetActive(true);
+                    // wife.transform.Find("DEVILEYES").gameObject.SetActive(true);
+                    // man.transform.Find("DEVILEYES").gameObject.SetActive(true);
+                    // baby.transform.Find("DEVILEYES").gameObject.SetActive(true);
+                    baby_DEVILEYES.SetActive(true);
+                    man_DEVILEYES.SetActive(true);
+                    wife_DEVILEYES.SetActive(true);
+
+
 
                     man_head_look.startlookingatplayer();
                     wife_head_look.startlookingatplayer();
