@@ -174,6 +174,7 @@ public class Scene4Manager : SceneManager
             CanvasManager.instance.EnableKey(true);
         else if (event1 == "EndKey")
         {
+            timetopush = true;
             kidsRoomDoor.CanOpen = true;
             kidroomdoorlight.gameObject.SetActive(true);
         }
@@ -216,7 +217,7 @@ public class Scene4Manager : SceneManager
             StartCoroutine(executeafterntime(0.5f, () => { kidroomdoorlight.gameObject.SetActive(false); }));
             StartCoroutine(executeafterntime(2f, () =>
             {
-                timetopush = true;
+
 
 
                 spotlight1.startflickering(); spotlight2.startflickering(); innerroomlightflickr.startflickering(); RenderSettings.ambientLight = new Color(0.107f, 0.107f, 0.107f, 0.107f);
