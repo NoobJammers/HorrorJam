@@ -5,6 +5,8 @@ using System;
 using UnityEngine.Events;
 using UnityEngine.AI;
 using DG.Tweening;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 public class Scene4Manager : SceneManager
 {
 
@@ -116,6 +118,13 @@ public class Scene4Manager : SceneManager
     public Transform PushForceBookShelf1;
     public Light kidroomdoorlight;
     private bool timetopush = false;
+
+    /// <summary>
+    /// //misc
+    /// </summary>
+    /// 
+    public Volume volume;
+    private ColorAdjustments cad;
     private void Awake()
     {
 
@@ -172,6 +181,20 @@ public class Scene4Manager : SceneManager
                     baby.transform.position = baby_position_3.transform.position;
                     baby.transform.forward = baby_position_3.transform.forward;
                     baby_switch_animation.switchtoanimation("standing", 0, 0);
+
+                    volume.profile.TryGet<ColorAdjustments>(out cad);
+
+
+
+                    cad.colorFilter.Override(new Color(1, 0, 0));
+
+                    wife.transform.Find("DEVILEYES").gameObject.SetActive(true);
+                    man.transform.Find("DEVILEYES").gameObject.SetActive(true);
+                    baby.transform.Find("DEVILEYES").gameObject.SetActive(true);
+
+                    man_head_look.startlookingatplayer();
+                    wife_head_look.startlookingatplayer();
+                    baby_head_look.startlookingatplayer();
                 }
             };
 
