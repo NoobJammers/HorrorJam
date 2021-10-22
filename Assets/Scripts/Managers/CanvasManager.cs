@@ -16,6 +16,7 @@ public class CanvasManager : MonoBehaviour
     public GameObject interactText;
     public GameObject diary;
     public GameObject key;
+    public GameObject bulb;
 
     private void Awake()
     {
@@ -45,6 +46,11 @@ public class CanvasManager : MonoBehaviour
     public void EnableKey(bool val)
     {
         key.SetActive(val);
+    }
+
+    public void EnableBulb(bool val)
+    {
+        bulb.SetActive(val);
     }
     public void SetText(string textToInsert)
     {

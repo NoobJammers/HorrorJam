@@ -57,6 +57,10 @@ public class PlayerPointer : MonoBehaviour
                     Scene4Manager.activeSceneManager.GeneralInteractionEvents?.Invoke("EndKey");
                 }
             }
+            else if (CanvasManager.instance.bulb.activeInHierarchy)
+            {
+                CanvasManager.instance.EnableBulb(false);
+            }
         }
     }
 }

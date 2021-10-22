@@ -17,7 +17,8 @@ public class LightningFlicker : MonoBehaviour
     private Coroutine flickr;
     public void startflickering()
     {
-        light = GetComponent<Light>();
+        if (!light)
+            light = GetComponent<Light>();
         original_intensity = light.intensity;
         flickr = StartCoroutine(Flickr());
     }
@@ -51,7 +52,10 @@ public class LightningFlicker : MonoBehaviour
     public void stopflickering()
     {
         StopCoroutine(flickr);
-
     }
+
+
+
+
 
 }
