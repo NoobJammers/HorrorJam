@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using UnityEngine.Events;
 using UnityEngine.AI;
+using DG.Tweening;
 public class Scene4Manager : SceneManager
 {
 
@@ -176,6 +177,8 @@ public class Scene4Manager : SceneManager
         {
             timetopush = true;
             kidsRoomDoor.CanOpen = true;
+            wife.transform.position = wife_final_position.position;
+            wife.transform.forward = wife_final_position.forward;
             kidroomdoorlight.gameObject.SetActive(true);
         }
         else if (event1 == "Shelf")
@@ -221,6 +224,14 @@ public class Scene4Manager : SceneManager
 
 
                 spotlight1.startflickering(); spotlight2.startflickering(); innerroomlightflickr.startflickering(); RenderSettings.ambientLight = new Color(0.107f, 0.107f, 0.107f, 0.107f);
+                wife.transform.position = wife_position_2.position;
+                wife.transform.forward = wife_position_2.forward;
+                wife_switch_animation.switchtoanimation("ghost", 0, 0);
+                wife.transform.DOLocalMoveZ(wife_position_3.position.z, 15).SetEase(Ease.InOutSine).OnComplete(() =>
+                {
+                    wife.transform.DOLocalRotate(Vector3.up * 0, 4).OnComplete(() => { wife_switch_animation.switchtoanimation("ghost_point", 0, 4); });
+
+                });
             }));
         }));
 
