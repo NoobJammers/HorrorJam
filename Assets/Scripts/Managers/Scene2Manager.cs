@@ -102,6 +102,12 @@ public class Scene2Manager : SceneManager
 
     private void Awake()
     {
+
+    }
+    private void OnEnable()
+    {
+        GeneralEvent += TriggerHandler;
+        GeneralInteractionEvents += InteractionEventHandler;
         babyGameObject.transform.position = baby_init_position.position;
         baby_switch_animation.switchtoanimation("BabySittingGroundSingleFrame", 0, 0);
 
@@ -110,11 +116,6 @@ public class Scene2Manager : SceneManager
 
         wifeGameObject.transform.position = wife_init_position.position;
         wife_switch_animation.switchtoanimation("SittingFemale", 0, 0);
-    }
-    private void OnEnable()
-    {
-        GeneralEvent += TriggerHandler;
-        GeneralInteractionEvents += InteractionEventHandler;
     }
 
     /// <summary>

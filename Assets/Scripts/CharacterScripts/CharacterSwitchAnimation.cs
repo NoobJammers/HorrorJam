@@ -9,11 +9,11 @@ public class CharacterSwitchAnimation : MonoBehaviour
     {
         animator = GetComponent<Animator>();
     }
-    public void switchtoanimation(string animname, int delay, int speed)
+    public void switchtoanimation(string animname, int delay, float speed)
     {
         StartCoroutine(StartAnimWithDelay(animname, delay, speed));
     }
-    IEnumerator StartAnimWithDelay(string animname, int delay, int speed)
+    IEnumerator StartAnimWithDelay(string animname, int delay, float speed)
     {
         yield return new WaitForSeconds(delay);
         animator.Play(animname);

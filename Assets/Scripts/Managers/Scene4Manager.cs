@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.Events;
+using UnityEngine.AI;
 public class Scene4Manager : SceneManager
 {
 
@@ -77,7 +78,11 @@ public class Scene4Manager : SceneManager
     public CharacterSwitchAnimation devil_switch_animation;
     public Transform demon_init_position;
     public Transform demon_baby_position;
-
+    public Transform Lightningbois;
+    public LightningFlicker spotlight1;
+    public LightningFlicker spotlight2;
+    public LightningFlicker kiddoorlightflickr;
+    public LightningFlicker innerroomlightflickr;
     /// <summary>
     /// DEMON SPAWNER
     /// </summary>
@@ -113,7 +118,14 @@ public class Scene4Manager : SceneManager
     private void Awake()
     {
 
+
+
+
+    }
+    private void OnEnable()
+    {
         kidroomdoorlight.gameObject.SetActive(false);
+        baby.transform.GetComponent<NavMeshAgent>().enabled = true;
         baby.transform.position = baby_init_position.position;
         baby.transform.rotation = baby_init_position.rotation;
         baby_switch_animation.switchtoanimation("standing", 0, 0);
@@ -122,11 +134,7 @@ public class Scene4Manager : SceneManager
         wife.transform.rotation = wife_position_1.rotation;
         wife_switch_animation.switchtoanimation("womandead", 0, 1);
         kidsRoomDoor.CanOpen = false;
-
-
-    }
-    private void OnEnable()
-    {
+        RenderSettings.ambientLight = new Color(0.13f, 0.13f, 0.13f, 0);
         GeneralEvent += TriggerHandler;
         GeneralInteractionEvents += InteractionEventHandler;
     }
@@ -140,6 +148,7 @@ public class Scene4Manager : SceneManager
 
         if (collider.tag == "MirrorTrigger")
         {
+
             Destroy(collider.gameObject);
             bookshelf1.push(PushForceBookShelf1.forward, 40, PushForceBookShelf1.position);
             kidroomdoorlight.gameObject.SetActive(true);
@@ -166,6 +175,7 @@ public class Scene4Manager : SceneManager
         else if (event1 == "EndKey")
         {
             kidsRoomDoor.CanOpen = true;
+            kidroomdoorlight.gameObject.SetActive(true);
         }
         else if (event1 == "Shelf")
         {
@@ -186,7 +196,7 @@ public class Scene4Manager : SceneManager
 
         baby_char_mover.reachedDestination += Kidnap;
 
-        baby_char_mover.GoToPoint(baby_position_1.position, baby_position_2.position, 0.8f);
+        baby_char_mover.GoToPoint(baby_position_1.position, baby_position_2.position, 1.2f);
 
 
         /*      MoveCharacterToPosition.Invoke(enterRoomStartPoint.position, kidbed.position);
@@ -195,12 +205,24 @@ public class Scene4Manager : SceneManager
     }
     public void Kidnap()
     {
-        baby_switch_animation.switchtoanimation("sweep", 0, 1);
+        baby_switch_animation.switchtoanimation("sweep", 0, 1.3f);
 
-        devil_switch_animation.switchtoanimation("kidnap", 0, 1);
+        devil_switch_animation.switchtoanimation("kidnap", 0, 1.2f);
 
         baby_char_mover.reachedDestination -= Kidnap;
-        StartCoroutine(executeafterntime(2.15f, () => { kidsRoomDoor.CloseDoor(0.5f); timetopush = true; }));
+        StartCoroutine(executeafterntime(1f, () =>
+        {
+            kidsRoomDoor.CloseDoor(0.5f, false);
+            StartCoroutine(executeafterntime(0.5f, () => { kidroomdoorlight.gameObject.SetActive(false); }));
+            StartCoroutine(executeafterntime(2f, () =>
+            {
+                timetopush = true;
+
+
+                spotlight1.startflickering(); spotlight2.startflickering(); innerroomlightflickr.startflickering(); RenderSettings.ambientLight = new Color(0.107f, 0.107f, 0.107f, 0.107f);
+            }));
+        }));
+
     }
 
 

@@ -105,13 +105,14 @@ public class Scene3Manager : SceneManager
 
     private void Awake()
     {
+
+    }
+    private void OnEnable()
+    {
         babyGameObject.transform.position = baby_init_position.position;
         // man_char_mover.DisableNavMeshAgent();
         manGameObject.transform.position = man_init_pos.position;
         wifeGameObject.transform.position = wife_init_position.position;
-    }
-    private void OnEnable()
-    {
         GeneralEvent += TriggerHandler;
         GeneralInteractionEvents += InteractionEventHandler;
     }
