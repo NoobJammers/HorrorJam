@@ -5,9 +5,13 @@ using UnityEngine;
 public class CharacterSwitchAnimation : MonoBehaviour
 {
     public Animator animator;
-    private void Start()
+    private void Awake()
     {
         animator = GetComponent<Animator>();
+    }
+    private void Start()
+    {
+
     }
     public void switchtoanimation(string animname, int delay, float speed)
     {

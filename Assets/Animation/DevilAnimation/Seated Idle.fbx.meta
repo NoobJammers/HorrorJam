@@ -1,29 +1,12 @@
 fileFormatVersion: 2
-guid: aa723b44260e74040869a722c46a85c5
+guid: 7157cb127fea0434aa98aaf87586fbf2
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
-      74: -3100369314251171874
-    second: Idle
-  - first:
-      74: -7332522026633846041
-    second: crawl
-  - first:
-      74: -1940844405567213728
-    second: crawl_fast
-  - first:
-      74: 153583906467987591
-    second: pounce
-  - first:
-      74: -6239216113759591374
-    second: attack
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: crawler_mat
-    second: {fileID: 2100000, guid: 4e32191c8d2c8d249b907c930b0fb0f8, type: 2}
+      74: -203655887218126122
+    second: mixamo.com
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0

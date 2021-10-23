@@ -7,21 +7,25 @@ public class DemonCrawler : MonoBehaviour
 {
     public Animator animator;
 
-    public Transform endpos;
+    public Transform direction;
     public float starttime;
     public float speed = 3;
     private void Start()
     {
         animator.SetTrigger("Crawl");
-
+        starttime = Time.time;
 
     }
 
     private void Update()
     {
-        while (Time.time - starttime < 10)
+        if (Time.time - starttime < 20)
         {
-            transform.position += Time.deltaTime * speed * transform.forward;
+            transform.position += Time.deltaTime * speed * direction.forward;
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 

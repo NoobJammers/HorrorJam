@@ -42,7 +42,7 @@ public class Scene4Manager : SceneManager
 
     public DoorHandler kidsRoomDoor;
     public DoorHandler wiferoomdoor;
-
+    public DoorHandler exitroomdoor;
 
     /// <summary>
     /// Wife
@@ -99,7 +99,7 @@ public class Scene4Manager : SceneManager
     /// </summary>
     /// 
 
-    public DemonSpawner[] spawner;
+    public DemonCrawler[] crawlers;
     public GameObject devil_key;
 
 
@@ -154,6 +154,7 @@ public class Scene4Manager : SceneManager
         wife_switch_animation.switchtoanimation("womandead", 0, 1);
         kidsRoomDoor.CanOpen = false;
         wiferoomdoor.CanOpen = false;
+        demon_switch_animation.animator.enabled = false;
         RenderSettings.ambientLight = new Color(0.13f, 0.13f, 0.13f, 0);
         GeneralEvent += TriggerHandler;
         GeneralInteractionEvents += InteractionEventHandler;
@@ -225,17 +226,22 @@ public class Scene4Manager : SceneManager
         }
         else if (collider.tag == "DevilTrigger")
         {
-
+            Destroy(collider.gameObject);
             devil.transform.position = devil_final_pos.position;
+            devil.transform.LookAt(Camera.main.transform);
             devil_switch_animation.switchtoanimation("Raise", 0, 1);
-            StartCoroutine(executeafterntime(3, () =>
-            {
+            StartCoroutine(executeafterntime(1.4f, () =>
+                 {
 
-                foreach (DemonSpawner dsp in spawner)
-                {
-                    dsp.activate();
-                }
-            }));
+                     foreach (DemonCrawler crawler in crawlers)
+                     {
+                         crawler.gameObject.SetActive(true);
+                         crawler.GetComponent<CharacterSwitchAnimation>().switchtoanimation("crawl_fast", 0, 1);
+                     }
+                 }));
+            StartCoroutine(executeafterntime(1.4f, () => { devil_switch_animation.switchtoanimation("Raise", 0, -1); }));
+            StartCoroutine(executeafterntime(6, () => { devil.transform.gameObject.SetActive(false); }));
+
         }
 
         //TODO: WHEN FIRST CROSSED THE THRESHOLD OF THE 4TH house TRIGGER
@@ -274,6 +280,7 @@ public class Scene4Manager : SceneManager
         {
             devil_key.SetActive(false);
             DevilTrigger.SetActive(true);
+            exitroomdoor.CanOpen = true;
         }
     }
     public void StartMirrorScene()
@@ -290,6 +297,7 @@ public class Scene4Manager : SceneManager
     }
     public void Kidnap()
     {
+        demon_switch_animation.animator.enabled = true;
         baby_switch_animation.switchtoanimation("sweep", 0, 1.3f);
 
         demon_switch_animation.switchtoanimation("kidnap", 0, 1.2f);
@@ -360,6 +368,13 @@ public class Scene4Manager : SceneManager
             {
                 CanvasManager.instance.SetInteractTextValue("");
             }
+        }
+        if (g.tag == "ExitDoorHandle")
+        {
+            if (exitroomdoor.CanOpen)
+                CanvasManager.instance.SetInteractTextValue("Open Door");
+            else
+                CanvasManager.instance.SetInteractTextValue("Door Locked");
         }
     }
     private void OnDisable()

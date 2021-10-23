@@ -19,11 +19,13 @@ public class DemonSpawner : MonoBehaviour
         {
 
             GameObject crawler = Instantiate(demonCrawler, transform.position, Quaternion.identity);
+
             GameObject crawler_body = crawler.transform.Find("demon_body").gameObject;
+
             crawler_body.transform.up = transform.up;
             crawler_body.transform.forward = transform.forward;
             crawler_body.transform.right = transform.right;
-            yield return new WaitForSeconds(Random.Range(0.5f, 0.9f));
+            yield return new WaitForSeconds(Random.Range(4, 6));
 
         }
     }
