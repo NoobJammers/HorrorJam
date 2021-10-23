@@ -5,7 +5,7 @@ using System;
 using UnityEngine.Events;
 public class Scene1Manager : SceneManager
 {
-
+    private bool otherhouseactive;
     [Header("Baby")]
     public GameObject babyGameObject;
     public CharacterMover baby_char_mover;
@@ -37,7 +37,7 @@ public class Scene1Manager : SceneManager
 
     [Header("Doors")]
     public DoorHandler exitDoor;
-
+    public DoorHandler entrydoor;
 
     [Header("Misc")]
     public GameObject whiskyGlass;
@@ -79,7 +79,31 @@ public class Scene1Manager : SceneManager
     /// </summary>
     public void TriggerHandler(Collider collider)
     {
+        if (collider.tag == "ExitHouseTrigger")
+        {
+            switchScene();
+            exitDoor.CloseDoor(0.5f, false);
+            Destroy(collider.gameObject);
+        }
+        if (collider.tag == "EntryHouseTrigger")
+        {
+            entrydoor.CloseDoor(0.5f, false);
 
+            Destroy(collider.gameObject);
+        }
+        if (collider.tag == "AboutToExitTrigger")
+        {
+            if (otherhouseactive)
+            {
+
+                otherhouseactive = false;
+            }
+            else
+            {
+
+                otherhouseactive = true;
+            }
+        }
     }
 
     public void InteractionEventHandler(string event1)

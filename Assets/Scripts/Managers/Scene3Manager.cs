@@ -9,7 +9,7 @@ public class Scene3Manager : SceneManager
     /* static public Scene4Manager instance;*/
 
 
-
+    private bool otherhouseactive;
     [Header("Baby")]
     public GameObject babyGameObject;
     public CharacterMover baby_char_mover;
@@ -54,7 +54,7 @@ public class Scene3Manager : SceneManager
     [Header("Doors")]
     public DoorHandler exitDoor;
     public DoorHandler masterBedroomDoor;
-
+    public DoorHandler entrydoor;
 
 
     [Header("Furniture")]
@@ -120,6 +120,31 @@ public class Scene3Manager : SceneManager
     /// </summary>
     public void TriggerHandler(Collider collider)
     {
+        if (collider.tag == "ExitHouseTrigger")
+        {
+            switchScene();
+            exitDoor.CloseDoor(0.5f, false);
+            Destroy(collider.gameObject);
+        }
+        if (collider.tag == "EntryHouseTrigger")
+        {
+            entrydoor.CloseDoor(0.5f, false);
+            scenemanagers[1].transform.parent.gameObject.SetActive(false);
+            Destroy(collider.gameObject);
+        }
+        if (collider.tag == "AboutToExitTrigger")
+        {
+            if (otherhouseactive)
+            {
+                scenemanagers[3].transform.parent.gameObject.SetActive(false);
+                otherhouseactive = false;
+            }
+            else
+            {
+                scenemanagers[3].transform.parent.gameObject.SetActive(true);
+                otherhouseactive = true;
+            }
+        }
         // if (collider.tag == "MirrorTrigger")
         // {
         //     Destroy(collider.gameObject);

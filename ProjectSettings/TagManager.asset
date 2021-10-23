@@ -12,6 +12,9 @@ TagManager:
   - DevilTrigger
   - ExitDoorHandle
   - finalscenetrigger
+  - EnterHouseTrigger
+  - ExitHouseTrigger
+  - AboutToExitTrigger
   layers:
   - Default
   - TransparentFX

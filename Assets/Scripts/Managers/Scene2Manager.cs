@@ -8,9 +8,13 @@ public class Scene2Manager : SceneManager
 {
 
     /* static public Scene4Manager instance;*/
+    private bool otherhouseactive;
+    public GameObject alllights;
+    public GameObject tvspot1;
+    public GameObject tvspot2;
+    public GameObject drinkglass;
 
-
-
+    public Material sad_sky_box;
     [Header("Baby")]
     public GameObject babyGameObject;
     public CharacterMover baby_char_mover;
@@ -18,6 +22,8 @@ public class Scene2Manager : SceneManager
     public CharacterSwitchAnimation baby_switch_animation;
 
     public Transform baby_init_position;
+
+    public Transform baby_DEVILEYES;
     // public Transform baby_position_1;
     // public Transform baby_position_2;
     // public Transform baby_position_3;
@@ -29,6 +35,7 @@ public class Scene2Manager : SceneManager
     public CharacterHeadLook wife_head_look;
     public CharacterSwitchAnimation wife_switch_animation;
     public Transform wife_init_position;
+    public Transform WIFE_DEVILEYES;
 
     // public Transform wife_position_1;
     // public Transform wife_position_2;
@@ -44,7 +51,8 @@ public class Scene2Manager : SceneManager
     public CharacterHeadLook man_head_look;
     public CharacterSwitchAnimation man_switch_animation;
     public Transform man_init_pos;
-
+    public Transform MAN_DEVILEYES;
+    public SkinnedMeshRenderer manrend;
 
     [Header("Lights")]
     public Light hallLamp;
@@ -53,7 +61,7 @@ public class Scene2Manager : SceneManager
 
     [Header("Doors")]
     public DoorHandler exitDoor;
-
+    public DoorHandler entrydoor;
 
     [Header("Misc")]
     public GameObject bulb;
@@ -63,6 +71,7 @@ public class Scene2Manager : SceneManager
     bool fixedBulb = false;
 
 
+
     private void Awake()
     {
 
@@ -70,10 +79,7 @@ public class Scene2Manager : SceneManager
 
     private void Update()
     {
-        if (!fixedBulb)
-        {
 
-        }
     }
 
 
@@ -109,6 +115,31 @@ public class Scene2Manager : SceneManager
             bulb.transform.DOMoveX(bulb.transform.position.x - 1.7f, 2f);
             bulb.transform.DOLocalRotate(Vector3.right * (bulb.transform.eulerAngles.x + 720f), 2f);
         }
+        if (collider.tag == "ExitHouseTrigger")
+        {
+            switchScene();
+            exitDoor.CloseDoor(0.5f, false);
+            Destroy(collider.gameObject);
+        }
+        if (collider.tag == "EntryHouseTrigger")
+        {
+            entrydoor.CloseDoor(0.5f, false);
+            scenemanagers[0].transform.parent.gameObject.SetActive(false);
+            Destroy(collider.gameObject);
+        }
+        if (collider.tag == "AboutToExitTrigger")
+        {
+            if (otherhouseactive)
+            {
+                scenemanagers[2].transform.parent.gameObject.SetActive(false);
+                otherhouseactive = false;
+            }
+            else
+            {
+                scenemanagers[2].transform.parent.gameObject.SetActive(true);
+                otherhouseactive = true;
+            }
+        }
     }
 
     public void InteractionEventHandler(string event1)
@@ -126,15 +157,84 @@ public class Scene2Manager : SceneManager
             // hallLampLightningFlicker.enabled = false;
             Destroy(hallLampLightningFlicker);
             hallLamp.intensity = intensity;
-            Debug.Log("Yeet");
-            //Do neck snap staring
+
+
+
             //Validate
             //Blackout
             exitDoor.CanOpen = true;
+            StartCoroutine(checkforvisibility(() =>
+            {
+
+                man_switch_animation.animator.enabled = false;
+                wife_switch_animation.animator.enabled = false;
+                baby_switch_animation.animator.enabled = false;
+
+                man_head_look.startlookingatplayer();
+                wife_head_look.startlookingatplayer();
+                baby_head_look.startlookingatplayer();
+
+                MAN_DEVILEYES.gameObject.SetActive(true);
+                WIFE_DEVILEYES.gameObject.SetActive(true);
+                baby_DEVILEYES.gameObject.SetActive(true);
+                StartCoroutine(executeafterntime(1, () =>
+                {
+                    alllights.SetActive(false);
+                    tvspot1.SetActive(false);
+                    tvspot2.SetActive(false);
+                }));
+
+                StartCoroutine(executeafterntime(4, () =>
+                {
+
+
+
+                    MAN_DEVILEYES.gameObject.SetActive(false);
+                    WIFE_DEVILEYES.gameObject.SetActive(false);
+                    baby_DEVILEYES.gameObject.SetActive(false);
+
+
+                    drinkglass.SetActive(false);
+                    alllights.SetActive(true);
+                    tvspot1.SetActive(true);
+                    tvspot2.SetActive(true);
+
+
+
+                }));
+            }));
+
         }
     }
 
+    IEnumerator checkforvisibility(Action a)
+    {
+        while (true)
+        {
+            if (CheckVisibility())
+            {
+                a.Invoke();
+                yield break;
+            }
+            yield return null;
+        }
+    }
+    public bool CheckVisibility()
+    {
+        //Check Visibility
 
+        Vector2 screenPos = Camera.main.WorldToScreenPoint(manGameObject.transform.position);
+        bool onScreen = screenPos.x > 0f && screenPos.x < Screen.width && screenPos.y > 0f && screenPos.y < Screen.height;
+
+        if (onScreen && manrend.isVisible)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     IEnumerator executeafterntime(float n, Action a)
     {
@@ -149,8 +249,22 @@ public class Scene2Manager : SceneManager
     }
     private void OnDisable()
     {
+        man_switch_animation.animator.enabled = true;
+        wife_switch_animation.animator.enabled = true;
+        baby_switch_animation.animator.enabled = true;
+
+        manGameObject.transform.position += Vector3.up * 5;
+        wifeGameObject.transform.position += Vector3.up * 5;
+        babyGameObject.transform.position += Vector3.up * 5;
+
+        manGameObject.SetActive(false);
+        wifeGameObject.SetActive(false);
+        babyGameObject.SetActive(false);
         GeneralEvent -= TriggerHandler;
         GeneralInteractionEvents -= InteractionEventHandler;
+
+        RenderSettings.skybox = sad_sky_box;
+
     }
 
 
