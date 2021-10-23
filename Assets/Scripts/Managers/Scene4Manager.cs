@@ -83,21 +83,24 @@ public class Scene4Manager : SceneManager
     public GameObject devil;
     public CharacterMover devil_char_mover;
     public CharacterHeadLook devil_head_look;
+    public Transform devil_final_pos;
     public CharacterSwitchAnimation devil_switch_animation;
     public Transform demon_init_position;
     public Transform demon_baby_position;
     public Transform Lightningbois;
+    public GameObject DevilTrigger;
     public LightningFlicker spotlight1;
     public LightningFlicker spotlight2;
     public LightningFlicker kiddoorlightflickr;
     public LightningFlicker innerroomlightflickr;
+    public CharacterSwitchAnimation demon_switch_animation;
     /// <summary>
     /// DEMON SPAWNER
     /// </summary>
     /// 
 
-    DemonSpawner spawner;
-    Transform[] spawnerpoints;
+    public DemonSpawner[] spawner;
+    public GameObject devil_key;
 
 
     /// <summary>
@@ -145,6 +148,7 @@ public class Scene4Manager : SceneManager
         baby.transform.rotation = baby_init_position.rotation;
         baby_switch_animation.switchtoanimation("standing", 0, 0);
         man.transform.position = maninitpos.position;
+        devil.transform.position = devil_final_pos.position + Vector3.up * 10;
         wife.transform.position = wife_position_1.position;
         wife.transform.rotation = wife_position_1.rotation;
         wife_switch_animation.switchtoanimation("womandead", 0, 1);
@@ -153,6 +157,7 @@ public class Scene4Manager : SceneManager
         RenderSettings.ambientLight = new Color(0.13f, 0.13f, 0.13f, 0);
         GeneralEvent += TriggerHandler;
         GeneralInteractionEvents += InteractionEventHandler;
+
     }
 
     /// <summary>
@@ -174,21 +179,30 @@ public class Scene4Manager : SceneManager
             {
                 if (canopen)
                 {
+                    DOTween.Kill(wife.transform);
                     baby.transform.GetComponent<NavMeshAgent>().enabled = false;
                     wife.transform.position = wife_final_position.position;
                     wife.transform.forward = wife_final_position.transform.forward;
-                    wife_switch_animation.switchtoanimation("standing", 0, 0);
+                    wife_switch_animation.switchtoanimation("ghost", 0, 1);
 
+                    StartCoroutine(executeafterntime(0.3f, () => { wife_switch_animation.animator.enabled = false; }
+                  ));
                     man.transform.position = manfinalposition.position;
                     man.transform.forward = manfinalposition.transform.forward;
-                    man_switch_animation.switchtoanimation("standing", 0, 0);
-
+                    man_switch_animation.switchtoanimation("standing", 0, 1);
+                    StartCoroutine(executeafterntime(0.3f, () => { man_switch_animation.animator.enabled = false; }
+                 ));
                     baby.transform.position = baby_position_3.transform.position;
                     baby.transform.forward = baby_position_3.transform.forward;
-                    baby_switch_animation.switchtoanimation("standing", 0, 0);
+                    baby_switch_animation.switchtoanimation("standing", 0, 1);
 
+                    StartCoroutine(executeafterntime(0.3f, () => { baby_switch_animation.animator.enabled = false; }
+                    ));
+                    /*  baby_switch_animation.animator.enabled = false;*/
                     volume.profile.TryGet<ColorAdjustments>(out cad);
-
+                    wife_head_look.startlookingatplayer();
+                    baby_head_look.startlookingatplayer();
+                    man_head_look.startlookingatplayer();
 
 
                     cad.colorFilter.Override(new Color(1, 0, 0));
@@ -209,11 +223,21 @@ public class Scene4Manager : SceneManager
             };
 
         }
-        if (collider.tag == "PickUpTrigger")
+        else if (collider.tag == "DevilTrigger")
         {
-            Destroy(collider.gameObject);
-            /* StartBabySnatchedScene();*/
+
+            devil.transform.position = devil_final_pos.position;
+            devil_switch_animation.switchtoanimation("Raise", 0, 1);
+            StartCoroutine(executeafterntime(3, () =>
+            {
+
+                foreach (DemonSpawner dsp in spawner)
+                {
+                    dsp.activate();
+                }
+            }));
         }
+
         //TODO: WHEN FIRST CROSSED THE THRESHOLD OF THE 4TH house TRIGGER
         //--> DOOR CLOSED
         //init stuff
@@ -226,6 +250,7 @@ public class Scene4Manager : SceneManager
             CanvasManager.instance.EnableKey(true);
         else if (event1 == "EndKey")
         {
+            DOTween.Kill(wife.transform);
             timetopush = true;
             kidsRoomDoor.CanOpen = true;
             wife.transform.position = wife_final_position.position + Vector3.up * 10;
@@ -245,6 +270,11 @@ public class Scene4Manager : SceneManager
                 CanvasManager.instance.SetInteractTextValue("");
             }
         }
+        else if (event1 == "DevilKey")
+        {
+            devil_key.SetActive(false);
+            DevilTrigger.SetActive(true);
+        }
     }
     public void StartMirrorScene()
     {
@@ -262,7 +292,7 @@ public class Scene4Manager : SceneManager
     {
         baby_switch_animation.switchtoanimation("sweep", 0, 1.3f);
 
-        devil_switch_animation.switchtoanimation("kidnap", 0, 1.2f);
+        demon_switch_animation.switchtoanimation("kidnap", 0, 1.2f);
 
         baby_char_mover.reachedDestination -= Kidnap;
         StartCoroutine(executeafterntime(1f, () =>

@@ -9,6 +9,7 @@ TagManager:
   - KidDoorHandle
   - MainRoomHandle
   - BulbTrigger
+  - DevilTrigger
   layers:
   - Default
   - TransparentFX

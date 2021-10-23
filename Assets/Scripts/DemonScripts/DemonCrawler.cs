@@ -5,14 +5,26 @@ using DG.Tweening;
 
 public class DemonCrawler : MonoBehaviour
 {
-    [SerializeField] Animator animator;
+    public Animator animator;
 
-
+    public Transform endpos;
+    public float starttime;
+    public float speed = 3;
     private void Start()
     {
         animator.SetTrigger("Crawl");
-        transform.DOMoveX(transform.localPosition.x - 20f, 4f).SetEase(Ease.Linear).OnComplete(() => Destroy(gameObject));
+
+
     }
+
+    private void Update()
+    {
+        while (Time.time - starttime < 10)
+        {
+            transform.position += Time.deltaTime * speed * transform.forward;
+        }
+    }
+
 
 
 

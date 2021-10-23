@@ -6,7 +6,7 @@ public class DemonSpawner : MonoBehaviour
 {   //new Vector3(-3.5f, 1.5f, -0.881f), new Vector3(-3.258f, 3.02f, 0f) 
     bool shouldSpawn = false;
     public GameObject demonCrawler;
-    public Vector3[] demonSpawnPos;
+
     public void activate()
     {
         shouldSpawn = true;
@@ -17,11 +17,12 @@ public class DemonSpawner : MonoBehaviour
     {
         while (shouldSpawn)
         {
-            int randomVal = Random.Range(0, demonSpawnPos.Length);
-            Instantiate(demonCrawler,
-                        demonSpawnPos[randomVal] + ((randomVal == 0 ? Vector3.up * Random.Range(0, 0.8f) : Vector3.forward * Random.Range(0, 0.6f)) * (Random.Range(0, 2) == 0 ? 1f : -1f)),
-                        (randomVal == 0 ? Quaternion.Euler(90f, 0f, 0f) : Quaternion.Euler(180f, 0f, 0f)));
 
+            GameObject crawler = Instantiate(demonCrawler, transform.position, Quaternion.identity);
+            GameObject crawler_body = crawler.transform.Find("demon_body").gameObject;
+            crawler_body.transform.up = transform.up;
+            crawler_body.transform.forward = transform.forward;
+            crawler_body.transform.right = transform.right;
             yield return new WaitForSeconds(Random.Range(0.5f, 0.9f));
 
         }
