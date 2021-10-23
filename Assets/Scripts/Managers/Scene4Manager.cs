@@ -84,6 +84,7 @@ public class Scene4Manager : SceneManager
     public CharacterMover devil_char_mover;
     public CharacterHeadLook devil_head_look;
     public Transform devil_final_pos;
+
     public CharacterSwitchAnimation devil_switch_animation;
     public Transform demon_init_position;
     public Transform demon_baby_position;
@@ -133,6 +134,18 @@ public class Scene4Manager : SceneManager
     /// 
     public Volume volume;
     private ColorAdjustments cad;
+
+
+
+    /// <summary>
+    /// ///////5th scene
+    /// </summary>
+    /// 
+
+    public Transform wife_finale_Scene_pos;
+    public Transform man_finale_scene_pos;
+    public Transform baby_finale_scene_pos;
+    public Transform devil_finale_scene_pos;
     private void Awake()
     {
 
@@ -239,8 +252,30 @@ public class Scene4Manager : SceneManager
                          crawler.GetComponent<CharacterSwitchAnimation>().switchtoanimation("crawl_fast", 0, 1);
                      }
                  }));
-            StartCoroutine(executeafterntime(1.4f, () => { devil_switch_animation.switchtoanimation("Raise", 0, -1); }));
-            StartCoroutine(executeafterntime(6, () => { devil.transform.gameObject.SetActive(false); }));
+
+            StartCoroutine(executeafterntime(6, () =>
+            {
+                devil.transform.gameObject.SetActive(false);
+
+                devil.transform.position = devil_finale_scene_pos.position;
+                devil.transform.gameObject.SetActive(true);
+                wife.transform.position = wife_finale_Scene_pos.position;
+                man.transform.position = man_finale_scene_pos.position;
+                baby.transform.position = baby_finale_scene_pos.position;
+
+                devil_switch_animation.switchtoanimation("seated", 0, 1);
+                man_switch_animation.switchtoanimation("Drinking", 0, 1);
+                wife_switch_animation.switchtoanimation("SittingFemale", 0, 1);
+                baby_switch_animation.switchtoanimation("BbaySitting", 0, 1);
+
+
+
+                baby_DEVILEYES.SetActive(false);
+                wife_DEVILEYES.SetActive(false);
+                man_DEVILEYES.SetActive(false);
+                cad.colorFilter.Override(new Color(0.5f, 0.25f, 0.25f));
+
+            }));
 
         }
 
@@ -281,6 +316,21 @@ public class Scene4Manager : SceneManager
             devil_key.SetActive(false);
             DevilTrigger.SetActive(true);
             exitroomdoor.CanOpen = true;
+            exitroomdoor.doorOpened += (canopen) =>
+            {
+                if (canopen)
+                {
+                    StartCoroutine(executeafterntime(10, () =>
+                    {
+                        devil_switch_animation.switchtoanimation("sit_clap", 0, 1);
+                        StartCoroutine(executeafterntime(0.2f, () =>
+                        {
+                            cad.colorFilter.Override(new Color(0, 0, 0));
+                        }));
+                    }));
+                }
+            };
+
         }
     }
     public void StartMirrorScene()

@@ -50,6 +50,9 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: -8897761939683824319}
     m_Position: {x: 622.38586, y: 352.4094, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -1176793743076620169}
+    m_Position: {x: 360.57697, y: 481.4291, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -107,6 +110,32 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 2892e9ae47af0044b800e15e60f895fa, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!1102 &-1176793743076620169
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: sit_clap
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: e4d84ce1df999124eb145c793a391995, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
