@@ -41,8 +41,7 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-
-        SceneManager.activeSceneManager.GeneralEvent.Invoke(other);
+        SceneDriver.activeSceneManager.GeneralEvent.Invoke(other);
 
     }
 }

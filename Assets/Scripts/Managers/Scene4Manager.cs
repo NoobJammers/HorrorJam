@@ -43,6 +43,7 @@ public class Scene4Manager : SceneManager
     public DoorHandler kidsRoomDoor;
     public DoorHandler wiferoomdoor;
     public DoorHandler exitroomdoor;
+    public DoorHandler entrydoor;
 
     /// <summary>
     /// Wife
@@ -171,6 +172,7 @@ public class Scene4Manager : SceneManager
         RenderSettings.ambientLight = new Color(0.13f, 0.13f, 0.13f, 0);
         GeneralEvent += TriggerHandler;
         GeneralInteractionEvents += InteractionEventHandler;
+        entrydoor.CanOpen = true;
 
     }
 
@@ -302,7 +304,12 @@ public class Scene4Manager : SceneManager
                 }));
             }));
         }
-
+        else if (collider.tag == "EnterHouseTrigger")
+        {
+            entrydoor.CloseDoor(0.5f, false);
+            scenedriver.scenemanagers[2].transform.parent.gameObject.SetActive(false);
+            Destroy(collider.gameObject);
+        }
         //TODO: WHEN FIRST CROSSED THE THRESHOLD OF THE 4TH house TRIGGER
         //--> DOOR CLOSED
         //init stuff

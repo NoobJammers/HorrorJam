@@ -8,7 +8,7 @@ public class InteractableShelf : Interactable
     override public void PerformInteractableAction()
     {
         base.PerformInteractableAction();
-        SceneManager.activeSceneManager.GeneralInteractionEvents?.Invoke("Shelf");
+        SceneDriver.activeSceneManager.GeneralInteractionEvents?.Invoke("Shelf");
 
     }
 }

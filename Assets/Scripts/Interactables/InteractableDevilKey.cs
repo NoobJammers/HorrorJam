@@ -8,7 +8,7 @@ public class InteractableDevilKey : Interactable
     override public void PerformInteractableAction()
     {
         base.PerformInteractableAction();
-        SceneManager.activeSceneManager.GeneralInteractionEvents?.Invoke("DevilKey");
+        SceneDriver.activeSceneManager.GeneralInteractionEvents?.Invoke("DevilKey");
 
     }
 }

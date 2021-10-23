@@ -10,7 +10,7 @@ public class InteractableLamp : Interactable
         if (isInteractable)
         {
             base.PerformInteractableAction();
-            SceneManager.activeSceneManager.GeneralInteractionEvents("LampFixed");
+            SceneDriver.activeSceneManager.GeneralInteractionEvents("LampFixed");
             isInteractable = false;
         }
     }

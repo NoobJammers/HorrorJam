@@ -7,10 +7,12 @@ public class CharacterHeadLook : MonoBehaviour
     public GameObject NeckBone;
     public bool screweduplocaltransform;
     private bool keeplooking;
-    private Vector3 originaldirection;
+    private Vector3 originalposition;
+    private Quaternion originalrotation;
     private void Start()
     {
-        originaldirection = transform.forward;
+        originalposition = NeckBone.transform.position;
+        originalrotation = NeckBone.transform.rotation;
     }
     public void lookAt(Transform t)
     {
@@ -41,6 +43,7 @@ public class CharacterHeadLook : MonoBehaviour
     {
 
         keeplooking = false;
-        transform.forward = originaldirection;
+        transform.position = originalposition;
+        transform.rotation = originalrotation;
     }
 }

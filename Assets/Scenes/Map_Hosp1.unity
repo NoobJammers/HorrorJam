@@ -5080,7 +5080,7 @@ GameObject:
   - component: {fileID: 163688763}
   - component: {fileID: 163688762}
   m_Layer: 0
-  m_Name: SceneManager
+  m_Name: SceneDriver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45484,7 +45484,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef35fa786abdfdb4bb08da1df28a6d6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scenemanagers: []
+  scenedriver: {fileID: 163688762}
   alllights: {fileID: 1902349691}
   tvspot1: {fileID: 390264385}
   tvspot2: {fileID: 1085732229}
@@ -53112,7 +53112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e9fd6b7912aa7f46acb6bae868531d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scenemanagers: []
+  scenedriver: {fileID: 163688762}
   babyGameObject: {fileID: 379968371638370825}
   baby_char_mover: {fileID: 0}
   baby_head_look: {fileID: 0}
@@ -69749,7 +69749,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81cd60b47516d144ab5e1fc9415fdf03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scenemanagers: []
+  scenedriver: {fileID: 163688762}
   babyGameObject: {fileID: 379968371638370825}
   baby_char_mover: {fileID: 65}
   baby_head_look: {fileID: 0}
@@ -71512,6 +71512,17 @@ Transform:
   m_Father: {fileID: 1728922126}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1572313854 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8851508750170385982, guid: 8d7233d34b27f344cb56fe0dcb1df7e3, type: 3}
+  m_PrefabInstance: {fileID: 1182486978}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d321264b90182234281c8d193500a484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1574666841
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -93366,7 +93377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ef9a521a0f368447bea68a497c692f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scenemanagers: []
+  scenedriver: {fileID: 163688762}
   baby: {fileID: 379968371638370825}
   baby_char_mover: {fileID: 65}
   baby_head_look: {fileID: 2011636106}
@@ -93382,6 +93393,7 @@ MonoBehaviour:
   kidsRoomDoor: {fileID: 1186551758}
   wiferoomdoor: {fileID: 64585213}
   exitroomdoor: {fileID: 324620960}
+  entrydoor: {fileID: 1572313854}
   wife: {fileID: 832563916}
   wife_char_mover: {fileID: 5553452667842424056}
   wife_head_look: {fileID: 832563919}

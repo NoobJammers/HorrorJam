@@ -12,7 +12,7 @@ public class Interactable : MonoBehaviour
         if (isInteractable)
         {
             outline.OutlineWidth = 6f;
-            SceneManager.activeSceneManager.WhatIsBeingHighlighted(gameObject);
+            SceneDriver.activeSceneManager.WhatIsBeingHighlighted(gameObject);
             CanvasManager.instance.SetInteractText(true);
         }
     }

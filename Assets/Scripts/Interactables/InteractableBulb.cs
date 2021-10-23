@@ -8,7 +8,7 @@ public class InteractableBulb : Interactable
     override public void PerformInteractableAction()
     {
         base.PerformInteractableAction();
-        SceneManager.activeSceneManager.GeneralInteractionEvents("LampCollected");
+        SceneDriver.activeSceneManager.GeneralInteractionEvents("LampCollected");
         gameObject.SetActive(false);
 
     }

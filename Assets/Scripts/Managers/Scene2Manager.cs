@@ -100,6 +100,7 @@ public class Scene2Manager : SceneManager
         wifeGameObject.transform.rotation = wife_init_position.rotation;
         wife_switch_animation.switchtoanimation("SittingFemale", 0, 0);
 
+        entrydoor.CanOpen = true;
         hallLampLightningFlicker.startflickering();
     }
 
@@ -117,26 +118,26 @@ public class Scene2Manager : SceneManager
         }
         if (collider.tag == "ExitHouseTrigger")
         {
-            switchScene();
+            scenedriver.switchScene();
             exitDoor.CloseDoor(0.5f, false);
             Destroy(collider.gameObject);
         }
-        if (collider.tag == "EntryHouseTrigger")
+        if (collider.tag == "EnterHouseTrigger")
         {
             entrydoor.CloseDoor(0.5f, false);
-            scenemanagers[0].transform.parent.gameObject.SetActive(false);
+            scenedriver.scenemanagers[0].transform.parent.gameObject.SetActive(false);
             Destroy(collider.gameObject);
         }
         if (collider.tag == "AboutToExitTrigger")
         {
             if (otherhouseactive)
             {
-                scenemanagers[2].transform.parent.gameObject.SetActive(false);
+                scenedriver.scenemanagers[2].transform.parent.gameObject.SetActive(false);
                 otherhouseactive = false;
             }
             else
             {
-                scenemanagers[2].transform.parent.gameObject.SetActive(true);
+                scenedriver.scenemanagers[2].transform.parent.gameObject.SetActive(true);
                 otherhouseactive = true;
             }
         }
@@ -187,7 +188,9 @@ public class Scene2Manager : SceneManager
                 StartCoroutine(executeafterntime(4, () =>
                 {
 
-
+                    manGameObject.SetActive(false);
+                    wifeGameObject.SetActive(false);
+                    babyGameObject.SetActive(false);
 
                     MAN_DEVILEYES.gameObject.SetActive(false);
                     WIFE_DEVILEYES.gameObject.SetActive(false);
@@ -249,6 +252,10 @@ public class Scene2Manager : SceneManager
     }
     private void OnDisable()
     {
+        man_head_look.stoplookingatplayer();
+        wife_head_look.stoplookingatplayer();
+        baby_head_look.stoplookingatplayer();
+
         man_switch_animation.animator.enabled = true;
         wife_switch_animation.animator.enabled = true;
         baby_switch_animation.animator.enabled = true;
@@ -257,9 +264,9 @@ public class Scene2Manager : SceneManager
         wifeGameObject.transform.position += Vector3.up * 5;
         babyGameObject.transform.position += Vector3.up * 5;
 
-        manGameObject.SetActive(false);
-        wifeGameObject.SetActive(false);
-        babyGameObject.SetActive(false);
+        manGameObject.SetActive(true);
+        wifeGameObject.SetActive(true);
+        babyGameObject.SetActive(true);
         GeneralEvent -= TriggerHandler;
         GeneralInteractionEvents -= InteractionEventHandler;
 

@@ -8,7 +8,7 @@ public class InteractableBottle : Interactable
     override public void PerformInteractableAction()
     {
         base.PerformInteractableAction();
-        SceneManager.activeSceneManager.GeneralInteractionEvents?.Invoke("Bottle");
+        SceneDriver.activeSceneManager.GeneralInteractionEvents?.Invoke("Bottle");
 
     }
 }

@@ -113,6 +113,7 @@ public class Scene3Manager : SceneManager
         devilGameObject.transform.position = devil_init_position.position;
         GeneralEvent += TriggerHandler;
         GeneralInteractionEvents += InteractionEventHandler;
+        entrydoor.CanOpen = true;
     }
 
     /// <summary>
@@ -122,26 +123,26 @@ public class Scene3Manager : SceneManager
     {
         if (collider.tag == "ExitHouseTrigger")
         {
-            switchScene();
+            scenedriver.switchScene();
             exitDoor.CloseDoor(0.5f, false);
             Destroy(collider.gameObject);
         }
-        if (collider.tag == "EntryHouseTrigger")
+        if (collider.tag == "EnterHouseTrigger")
         {
             entrydoor.CloseDoor(0.5f, false);
-            scenemanagers[1].transform.parent.gameObject.SetActive(false);
+            scenedriver.scenemanagers[1].transform.parent.gameObject.SetActive(false);
             Destroy(collider.gameObject);
         }
         if (collider.tag == "AboutToExitTrigger")
         {
             if (otherhouseactive)
             {
-                scenemanagers[3].transform.parent.gameObject.SetActive(false);
+                scenedriver.scenemanagers[3].transform.parent.parent.gameObject.SetActive(false);
                 otherhouseactive = false;
             }
             else
             {
-                scenemanagers[3].transform.parent.gameObject.SetActive(true);
+                scenedriver.scenemanagers[3].transform.parent.parent.gameObject.SetActive(true);
                 otherhouseactive = true;
             }
         }

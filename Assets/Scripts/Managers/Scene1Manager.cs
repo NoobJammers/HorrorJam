@@ -81,11 +81,11 @@ public class Scene1Manager : SceneManager
     {
         if (collider.tag == "ExitHouseTrigger")
         {
-            switchScene();
+            scenedriver.switchScene();
             exitDoor.CloseDoor(0.5f, false);
             Destroy(collider.gameObject);
         }
-        if (collider.tag == "EntryHouseTrigger")
+        if (collider.tag == "EnterHouseTrigger")
         {
             entrydoor.CloseDoor(0.5f, false);
 
@@ -95,12 +95,12 @@ public class Scene1Manager : SceneManager
         {
             if (otherhouseactive)
             {
-
+                scenedriver.scenemanagers[1].transform.parent.gameObject.SetActive(false);
                 otherhouseactive = false;
             }
             else
             {
-
+                scenedriver.scenemanagers[1].transform.parent.gameObject.SetActive(true);
                 otherhouseactive = true;
             }
         }

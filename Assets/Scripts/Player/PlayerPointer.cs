@@ -45,7 +45,7 @@ public class PlayerPointer : MonoBehaviour
                 if (doOnceDiary)
                 {
                     doOnceDiary = false;
-                    SceneManager.activeSceneManager.GeneralInteractionEvents?.Invoke("EndDiary");
+                    SceneDriver.activeSceneManager.GeneralInteractionEvents?.Invoke("EndDiary");
                 }
             }
             else if (CanvasManager.instance.key.activeInHierarchy)
@@ -54,7 +54,7 @@ public class PlayerPointer : MonoBehaviour
                 if (doOnceKey)
                 {
                     doOnceKey = false;
-                    Scene4Manager.activeSceneManager.GeneralInteractionEvents?.Invoke("EndKey");
+                    SceneDriver.activeSceneManager.GeneralInteractionEvents?.Invoke("EndKey");
                 }
             }
             else if (CanvasManager.instance.bulb.activeInHierarchy)

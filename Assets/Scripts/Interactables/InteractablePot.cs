@@ -8,7 +8,7 @@ public class InteractablePot : Interactable
     override public void PerformInteractableAction()
     {
         base.PerformInteractableAction();
-        SceneManager.activeSceneManager.GeneralInteractionEvents?.Invoke("Pot");
+        SceneDriver.activeSceneManager.GeneralInteractionEvents?.Invoke("Pot");
 
     }
 }
