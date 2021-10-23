@@ -266,11 +266,10 @@ public class Scene4Manager : SceneManager
                          crawler.GetComponent<CharacterSwitchAnimation>().switchtoanimation("crawl_fast", 0, 1);
                      }
                  }));
-
+            StartCoroutine(executeafterntime(3f, () => AudioManager.instance.PlaySFX(AudioManager.instance.devilAfraid)));
             StartCoroutine(executeafterntime(6, () =>
             {
 
-                AudioManager.instance.PlaySFX(AudioManager.instance.devilAfraid);
                 devil.transform.gameObject.SetActive(false);
                 devil.transform.position = devil_finale_scene_pos.position;
                 devil.transform.forward = devil_finale_scene_pos.forward;

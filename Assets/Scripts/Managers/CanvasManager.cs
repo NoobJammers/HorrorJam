@@ -110,7 +110,7 @@ public class CanvasManager : MonoBehaviour
                {
                    fadeImage.gameObject.SetActive(false);
                    MouseLook.instance.LockCursor(false);
-                   credits.DOAnchorPosY(credits.anchoredPosition.y + 1000f, 10f).OnComplete(() => GoToMenu());
+                   credits.DOAnchorPosY(credits.anchoredPosition.y + 2816f, 10f).OnComplete(() => GoToMenu());
 
                });
            });
