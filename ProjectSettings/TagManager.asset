@@ -11,6 +11,7 @@ TagManager:
   - BulbTrigger
   - DevilTrigger
   - ExitDoorHandle
+  - finalscenetrigger
   layers:
   - Default
   - TransparentFX

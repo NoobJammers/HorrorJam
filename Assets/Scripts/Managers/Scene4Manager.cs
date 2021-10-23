@@ -258,25 +258,49 @@ public class Scene4Manager : SceneManager
                 devil.transform.gameObject.SetActive(false);
 
                 devil.transform.position = devil_finale_scene_pos.position;
+                devil.transform.forward = devil_finale_scene_pos.forward;
                 devil.transform.gameObject.SetActive(true);
                 wife.transform.position = wife_finale_Scene_pos.position;
+                wife.transform.forward = wife_finale_Scene_pos.forward;
                 man.transform.position = man_finale_scene_pos.position;
+                man.transform.forward = man_finale_scene_pos.forward;
                 baby.transform.position = baby_finale_scene_pos.position;
-
+                baby.transform.forward = baby_finale_scene_pos.forward;
                 devil_switch_animation.switchtoanimation("seated", 0, 1);
+
+                man_switch_animation.animator.enabled = true;
                 man_switch_animation.switchtoanimation("Drinking", 0, 1);
+                man_head_look.stoplookingatplayer();
+
+                wife_switch_animation.animator.enabled = true;
                 wife_switch_animation.switchtoanimation("SittingFemale", 0, 1);
-                baby_switch_animation.switchtoanimation("BbaySitting", 0, 1);
+
+                baby_switch_animation.animator.enabled = true;
+                baby_switch_animation.switchtoanimation("BabySitting", 0, 1);
+
 
 
 
                 baby_DEVILEYES.SetActive(false);
                 wife_DEVILEYES.SetActive(false);
                 man_DEVILEYES.SetActive(false);
-                cad.colorFilter.Override(new Color(0.5f, 0.25f, 0.25f));
+
 
             }));
 
+        }
+        else if (collider.tag == "finalscenetrigger")
+        {
+            exitroomdoor.CloseDoor(0.5f, false);
+            cad.colorFilter.Override(new Color(1f, 1f, 1f));
+            StartCoroutine(executeafterntime(60, () =>
+            {
+                devil_switch_animation.switchtoanimation("sit_clap", 0, 1);
+                StartCoroutine(executeafterntime(1f, () =>
+                {
+                    cad.colorFilter.Override(new Color(0, 0, 0));
+                }));
+            }));
         }
 
         //TODO: WHEN FIRST CROSSED THE THRESHOLD OF THE 4TH house TRIGGER
@@ -320,14 +344,7 @@ public class Scene4Manager : SceneManager
             {
                 if (canopen)
                 {
-                    StartCoroutine(executeafterntime(10, () =>
-                    {
-                        devil_switch_animation.switchtoanimation("sit_clap", 0, 1);
-                        StartCoroutine(executeafterntime(0.2f, () =>
-                        {
-                            cad.colorFilter.Override(new Color(0, 0, 0));
-                        }));
-                    }));
+
                 }
             };
 
