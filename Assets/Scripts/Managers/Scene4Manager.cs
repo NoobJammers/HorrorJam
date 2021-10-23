@@ -312,10 +312,10 @@ public class Scene4Manager : SceneManager
             AudioManager.instance.PlayBG2(false, null);
             exitroomdoor.CloseDoor(0.5f, false);
             cad.colorFilter.Override(new Color(1f, 1f, 1f));
-            StartCoroutine(executeafterntime(50, () =>
+            StartCoroutine(executeafterntime(49, () =>
             {
                 devil_switch_animation.switchtoanimation("sit_clap", 0, 1);
-                StartCoroutine(executeafterntime(0.6f, () => AudioManager.instance.PlaySFX(AudioManager.instance.singleClap)));
+                StartCoroutine(executeafterntime(0.25f, () => AudioManager.instance.PlaySFX(AudioManager.instance.singleClap)));
                 StartCoroutine(executeafterntime(1f, () =>
                 {
                     cad.colorFilter.Override(new Color(0, 0, 0));
