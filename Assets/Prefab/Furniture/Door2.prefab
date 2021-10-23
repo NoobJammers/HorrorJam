@@ -1104,6 +1104,10 @@ MonoBehaviour:
   angleWhenOpened: 150
   angleWhenClosed: 44.202
   playerCanOpen: 1
+  audioSource: {fileID: -1965146498332430877}
+  doorOpen: {fileID: 8300000, guid: 04eeda624fe064340afbcc34f3624481, type: 3}
+  doorClose: {fileID: 8300000, guid: 4afbee8e696834b4e9472a54460a02d4, type: 3}
+  doorLocked: {fileID: 8300000, guid: 083e35ee22ba2d74196b4049cc84c9bd, type: 3}
 --- !u!65 &809146555
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1128,7 +1132,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -1138,9 +1142,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 20
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -1173,7 +1177,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

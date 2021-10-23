@@ -8,6 +8,9 @@ public class DoorHandler : MonoBehaviour
     [SerializeField] GameObject door;
     [SerializeField] float angleWhenOpened, angleWhenClosed;
     [SerializeField] bool playerCanOpen = true;
+    [SerializeField] AudioSource audioSource;
+
+    [SerializeField] AudioClip doorOpen, doorClose, doorLocked;
 
     public Action<bool> doorOpened = (bool a) => { };
     public bool CanOpen { get { return playerCanOpen; } set { playerCanOpen = value; } }
@@ -25,7 +28,8 @@ public class DoorHandler : MonoBehaviour
         {
             doorOpened.Invoke(playerCanOpen);
             door.transform.DOLocalRotate(Vector3.up * angleWhenOpened, time);
-
+            audioSource.clip = doorOpen;
+            audioSource.Play();
             playerCanOpen = false;
 
         }
@@ -35,6 +39,15 @@ public class DoorHandler : MonoBehaviour
     {
         door.transform.DOLocalRotate(Vector3.up * angleWhenClosed, time);
         playerCanOpen = playerCanOpenAgain;
+        audioSource.clip = doorClose;
+        audioSource.Play();
+    }
+
+
+    public void PlayDoorLocked()
+    {
+        audioSource.clip = doorLocked;
+        audioSource.Play();
     }
 
     public void RattleDoor(float time)

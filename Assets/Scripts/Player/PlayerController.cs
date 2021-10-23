@@ -9,36 +9,49 @@ public class PlayerController : MonoBehaviour
     [SerializeField] MouseLook mouseLook;
     [SerializeField] float lookSpeed = 200f;
     [SerializeField] float movementSpeed = 4f;
-
+    [SerializeField] AudioSource audioSource;
     Vector3 move;
+    public bool canMove = true;
+
+
     private void Start()
     {
         mouseLook.mouseSensitivity = lookSpeed;
     }
     void Update()
     {
-
-        if (Input.GetAxis("Horizontal") > 0.1f || Input.GetAxis("Vertical") > 0.1f)
+        if (canMove)
         {
-            //Do cam tween
-            mouseLook.StartCameraTween();
-        }
-        else
-        {
-            //End tween
-            mouseLook.EndCameraTween();
-
+            if (Input.GetAxis("Horizontal") > 0.1f || Input.GetAxis("Vertical") > 0.1f)
+            {
+                //Do cam tween
+                mouseLook.StartCameraTween();
+                if (!audioSource.isPlaying)
+                    audioSource.Play();
+            }
+            else
+            {
+                //End tween
+                mouseLook.EndCameraTween();
+                if (audioSource.isPlaying)
+                    audioSource.Stop();
+            }
         }
     }
 
     private void FixedUpdate()
     {
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+        if (canMove)
+        {
+            float x = Input.GetAxis("Horizontal");
+            float z = Input.GetAxis("Vertical");
 
-        move = transform.right * x + transform.forward * z;
-        rigidBody.velocity = move.normalized * movementSpeed;
+            move = transform.right * x + transform.forward * z;
+            rigidBody.velocity = move.normalized * movementSpeed;
+        }
     }
+
+
     private void OnTriggerEnter(Collider other)
     {
         SceneDriver.activeSceneManager.GeneralEvent.Invoke(other);
