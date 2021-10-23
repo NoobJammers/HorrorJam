@@ -159,7 +159,7 @@ public class Scene4Manager : SceneManager
     private void OnEnable()
     {
         kidroomdoorlight.gameObject.SetActive(false);
-        baby.transform.GetComponent<NavMeshAgent>().enabled = true;
+
         baby.transform.position = baby_init_position.position;
         baby.transform.rotation = baby_init_position.rotation;
         baby_switch_animation.switchtoanimation("standing", 0, 0);
@@ -171,11 +171,11 @@ public class Scene4Manager : SceneManager
         kidsRoomDoor.CanOpen = false;
         wiferoomdoor.CanOpen = false;
         demon_switch_animation.animator.enabled = false;
-        RenderSettings.ambientLight = new Color(0.13f, 0.13f, 0.13f, 0);
+        RenderSettings.ambientLight = new Color(0.15f, 0.15f, 0.15f, 0);
         GeneralEvent += TriggerHandler;
         GeneralInteractionEvents += InteractionEventHandler;
         entrydoor.CanOpen = true;
-
+        baby.transform.GetComponent<NavMeshAgent>().enabled = true;
     }
 
     /// <summary>
@@ -212,6 +212,7 @@ public class Scene4Manager : SceneManager
                     man.transform.position = manfinalposition.position;
                     man.transform.forward = manfinalposition.transform.forward;
                     man_switch_animation.switchtoanimation("standing", 0, 1);
+                    man_switch_animation.gameObject.transform.position += Vector3.up * 0.5f;
                     StartCoroutine(executeafterntime(0.3f, () => { man_switch_animation.animator.enabled = false; }
                  ));
                     baby.transform.position = baby_position_3.transform.position;
@@ -271,8 +272,7 @@ public class Scene4Manager : SceneManager
                 devil.transform.gameObject.SetActive(true);
                 wife.transform.position = wife_finale_Scene_pos.position;
                 wife.transform.forward = wife_finale_Scene_pos.forward;
-                man.transform.position = man_finale_scene_pos.position;
-                man.transform.forward = man_finale_scene_pos.forward;
+
                 baby.transform.position = baby_finale_scene_pos.position;
                 baby.transform.forward = baby_finale_scene_pos.forward;
                 devil_switch_animation.switchtoanimation("seated", 0, 1);
@@ -280,6 +280,8 @@ public class Scene4Manager : SceneManager
                 man_switch_animation.animator.enabled = true;
                 man_switch_animation.switchtoanimation("Drinking", 0, 1);
                 man_head_look.stoplookingatplayer();
+                man.transform.position = man_finale_scene_pos.position;
+                man.transform.forward = man_finale_scene_pos.forward;
 
                 wife_switch_animation.animator.enabled = true;
                 wife_switch_animation.switchtoanimation("SittingFemale", 0, 1);
@@ -300,6 +302,7 @@ public class Scene4Manager : SceneManager
         }
         else if (collider.tag == "finalscenetrigger")
         {
+            Destroy(collider.gameObject);
             AudioManager.instance.PlayBG2(false, null);
             exitroomdoor.CloseDoor(0.5f, false);
             cad.colorFilter.Override(new Color(1f, 1f, 1f));

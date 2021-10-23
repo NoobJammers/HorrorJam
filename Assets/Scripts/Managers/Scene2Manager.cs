@@ -192,7 +192,7 @@ public class Scene2Manager : SceneManager
                     tvspot2.SetActive(false);
                 }));
 
-                StartCoroutine(executeafterntime(4, () =>
+                StartCoroutine(executeafterntime(2.5f, () =>
                 {
 
                     manGameObject.SetActive(false);

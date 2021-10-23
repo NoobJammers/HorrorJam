@@ -11,17 +11,22 @@ public class CharacterHeadLook : MonoBehaviour
     private Quaternion originalrotation;
     private void Start()
     {
-        originalposition = NeckBone.transform.position;
-        originalrotation = NeckBone.transform.rotation;
+        originalposition = NeckBone.transform.localPosition;
+        originalrotation = NeckBone.transform.localRotation;
     }
-    public void lookAt(Transform t)
+    public void lookAt(Transform t = null)
     {
+        if (t == null)
+            t = Camera.main.transform;
+
         if (!screweduplocaltransform)
             NeckBone.transform.rotation = Quaternion.LookRotation((Camera.main.transform.position - NeckBone.transform.position).normalized, Vector3.up) * Quaternion.Euler(-90, 0, 0) * Quaternion.Euler(0, 90, 0);
         else
         {
             NeckBone.transform.rotation = Quaternion.LookRotation((Camera.main.transform.position - NeckBone.transform.position).normalized, Vector3.up) * Quaternion.Euler(30, 0, 0);
         }
+
+
     }
 
     private void Update()
@@ -43,7 +48,7 @@ public class CharacterHeadLook : MonoBehaviour
     {
 
         keeplooking = false;
-        transform.position = originalposition;
-        transform.rotation = originalrotation;
+        transform.localRotation = originalrotation;
+        transform.localPosition = originalposition;
     }
 }

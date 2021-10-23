@@ -10,6 +10,7 @@ public class Scene3Manager : SceneManager
 
 
     private bool otherhouseactive;
+    public GameObject whiskeyobj;
     [Header("Baby")]
     public GameObject babyGameObject;
     public CharacterMover baby_char_mover;
@@ -117,6 +118,7 @@ public class Scene3Manager : SceneManager
         GeneralEvent += TriggerHandler;
         GeneralInteractionEvents += InteractionEventHandler;
         entrydoor.CanOpen = true;
+        whiskeyobj.SetActive(false);
     }
 
     /// <summary>
@@ -257,6 +259,7 @@ public class Scene3Manager : SceneManager
     {
         manGameObject.transform.position = man_position_1.position;
         manGameObject.transform.rotation = man_position_1.rotation;
+
         masterBedroomDoor.OpenDoor(0f, true);
         checkIfRenderingMan = true;
     }
@@ -273,6 +276,7 @@ public class Scene3Manager : SceneManager
         man_switch_animation.switchtoanimation("ThrowGlassBottleSingleFrame", 0, 1);
         manGameObject.transform.position = man_position_2.position;
         manGameObject.transform.rotation = man_position_2.rotation;
+
         wife_switch_animation.switchtoanimation("TerrifiedSingleFrame", 0, 1);
         wifeGameObject.transform.position = wife_position_1.position;
         wifeGameObject.transform.rotation = wife_position_1.rotation;
