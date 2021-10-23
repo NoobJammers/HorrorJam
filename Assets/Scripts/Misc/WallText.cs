@@ -25,7 +25,7 @@ public class WallText : MonoBehaviour
         foreach (SpriteRenderer child in murderList)
         {
             child.DOFade(0f, 0f);
-            ;
+
         }
 
     }

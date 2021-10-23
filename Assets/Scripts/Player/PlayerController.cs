@@ -11,12 +11,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float movementSpeed = 4f;
     [SerializeField] AudioSource audioSource;
     Vector3 move;
-    public bool canMove = true;
+    public bool canMove = false;
 
 
     private void Start()
     {
         mouseLook.mouseSensitivity = lookSpeed;
+        SetCanMove(true);
     }
     void Update()
     {
@@ -48,6 +49,16 @@ public class PlayerController : MonoBehaviour
 
             move = transform.right * x + transform.forward * z;
             rigidBody.velocity = move.normalized * movementSpeed;
+        }
+    }
+
+    public void SetCanMove(bool status)
+    {
+        if (status)
+        {
+            canMove = true;
+            AudioManager.instance.PlaySFX(AudioManager.instance.devilBeginning);
+
         }
     }
 

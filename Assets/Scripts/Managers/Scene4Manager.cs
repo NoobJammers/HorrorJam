@@ -265,8 +265,9 @@ public class Scene4Manager : SceneManager
 
             StartCoroutine(executeafterntime(6, () =>
             {
-                devil.transform.gameObject.SetActive(false);
 
+                AudioManager.instance.PlaySFX(AudioManager.instance.devilAfraid);
+                devil.transform.gameObject.SetActive(false);
                 devil.transform.position = devil_finale_scene_pos.position;
                 devil.transform.forward = devil_finale_scene_pos.forward;
                 devil.transform.gameObject.SetActive(true);
@@ -302,16 +303,20 @@ public class Scene4Manager : SceneManager
         }
         else if (collider.tag == "finalscenetrigger")
         {
+            AudioManager.instance.PlaySFX(AudioManager.instance.devilEnd);
             Destroy(collider.gameObject);
             AudioManager.instance.PlayBG2(false, null);
             exitroomdoor.CloseDoor(0.5f, false);
             cad.colorFilter.Override(new Color(1f, 1f, 1f));
-            StartCoroutine(executeafterntime(60, () =>
+            StartCoroutine(executeafterntime(50, () =>
             {
                 devil_switch_animation.switchtoanimation("sit_clap", 0, 1);
+                AudioManager.instance.PlaySFX(AudioManager.instance.singleClap);
                 StartCoroutine(executeafterntime(1f, () =>
                 {
                     cad.colorFilter.Override(new Color(0, 0, 0));
+                    AudioManager.instance.PlaySFX(AudioManager.instance.devilBeginning);
+
                 }));
             }));
         }

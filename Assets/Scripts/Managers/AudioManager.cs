@@ -8,7 +8,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource audioSourceBackGround, audioSourceBackGround2;
     public AudioSource audioSource;
 
-    public AudioClip bulbCollected, bulbFixed, diaryRead, horrorViolin, bottleBreak, jumpScare, singleClap, tripleClap, bookShelfFall, thunder, keyCollected;
+    public AudioClip bulbCollected, bulbFixed, diaryRead, horrorViolin, bottleBreak, jumpScare, singleClap, tripleClap, bookShelfFall, thunder, keyCollected, devilBeginning, devilAfraid, devilEnd;
 
 
     private void Awake()
