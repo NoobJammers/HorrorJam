@@ -31,10 +31,7 @@ public class CanvasManager : MonoBehaviour
     {
         instance = this;
     }
-    private void Start()
-    {
-        ShowCredits();
-    }
+
     public void SetInteractTextValue(string text)
     {
         interactText.GetComponent<TextMeshProUGUI>().text = text;
