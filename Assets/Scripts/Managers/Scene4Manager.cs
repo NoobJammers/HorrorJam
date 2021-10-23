@@ -27,7 +27,7 @@ public class Scene4Manager : SceneManager
     public Transform baby_position_2;
     public Transform baby_position_3;
     public GameObject baby_DEVILEYES;
-
+    public AudioSource baby_audio_source;
 
     /// <summary>
     /// DemonCrawler
@@ -137,6 +137,8 @@ public class Scene4Manager : SceneManager
     private ColorAdjustments cad;
 
 
+    public AudioClip babyLaughing, babyCrying;
+
 
     /// <summary>
     /// ///////5th scene
@@ -188,6 +190,9 @@ public class Scene4Manager : SceneManager
 
             Destroy(collider.gameObject);
             bookshelf1.push(PushForceBookShelf1.forward, 40, PushForceBookShelf1.position);
+            StartCoroutine(executeafterntime(0.7f, () => { AudioManager.instance.PlaySFX(AudioManager.instance.bookShelfFall); }
+            ));
+
             kidroomdoorlight.gameObject.SetActive(true);
             kidsRoomDoor.OpenDoor(1f, true);
             StartCoroutine(executeafterntime(1, () => { StartMirrorScene(); }));
@@ -200,6 +205,7 @@ public class Scene4Manager : SceneManager
                     wife.transform.position = wife_final_position.position;
                     wife.transform.forward = wife_final_position.transform.forward;
                     wife_switch_animation.switchtoanimation("ghost", 0, 1);
+                    AudioManager.instance.PlaySFX(AudioManager.instance.jumpScare);
 
                     StartCoroutine(executeafterntime(0.3f, () => { wife_switch_animation.animator.enabled = false; }
                   ));
@@ -242,6 +248,7 @@ public class Scene4Manager : SceneManager
         else if (collider.tag == "DevilTrigger")
         {
             Destroy(collider.gameObject);
+            AudioManager.instance.PlayBG2(true, AudioManager.instance.horrorViolin);
             devil.transform.position = devil_final_pos.position;
             devil.transform.LookAt(Camera.main.transform);
             devil_switch_animation.switchtoanimation("Raise", 0, 1);
@@ -293,6 +300,7 @@ public class Scene4Manager : SceneManager
         }
         else if (collider.tag == "finalscenetrigger")
         {
+            AudioManager.instance.PlayBG2(false, null);
             exitroomdoor.CloseDoor(0.5f, false);
             cad.colorFilter.Override(new Color(1f, 1f, 1f));
             StartCoroutine(executeafterntime(60, () =>
@@ -319,7 +327,10 @@ public class Scene4Manager : SceneManager
     public void InteractionEventHandler(string event1)
     {
         if (event1 == "Pot")
+        {
             CanvasManager.instance.EnableKey(true);
+            AudioManager.instance.PlaySFX(AudioManager.instance.keyCollected);
+        }
         else if (event1 == "EndKey")
         {
             DOTween.Kill(wife.transform);
@@ -344,6 +355,7 @@ public class Scene4Manager : SceneManager
         }
         else if (event1 == "DevilKey")
         {
+            AudioManager.instance.PlaySFX(AudioManager.instance.keyCollected);
             devil_key.SetActive(false);
             DevilTrigger.SetActive(true);
             exitroomdoor.CanOpen = true;
@@ -363,7 +375,8 @@ public class Scene4Manager : SceneManager
         baby_char_mover.reachedDestination += Kidnap;
 
         baby_char_mover.GoToPoint(baby_position_1.position, baby_position_2.position, 1.2f);
-
+        baby_audio_source.clip = babyLaughing;
+        baby_audio_source.Play();
 
         /*      MoveCharacterToPosition.Invoke(enterRoomStartPoint.position, kidbed.position);
               ManLookAt.Invoke(Camera.main.transform);*/
@@ -371,6 +384,9 @@ public class Scene4Manager : SceneManager
     }
     public void Kidnap()
     {
+        baby_audio_source.Stop();
+        baby_audio_source.clip = babyCrying;
+        baby_audio_source.Play();
         demon_switch_animation.animator.enabled = true;
         baby_switch_animation.switchtoanimation("sweep", 0, 1.3f);
 
@@ -382,6 +398,7 @@ public class Scene4Manager : SceneManager
             kidsRoomDoor.CloseDoor(0.5f, false);
             StartCoroutine(executeafterntime(0.5f, () =>
             {
+                baby_audio_source.Stop();
                 kidroomdoorlight.gameObject.SetActive(false);
                 Destroy(demoncrawler_one_off.gameObject);
             }));
@@ -389,7 +406,7 @@ public class Scene4Manager : SceneManager
             {
 
 
-
+                AudioManager.instance.PlayBG2(true, AudioManager.instance.thunder);
                 spotlight1.startflickering(); spotlight2.startflickering(); innerroomlightflickr.startflickering(); RenderSettings.ambientLight = new Color(0.107f, 0.107f, 0.107f, 0.107f);
                 wife.transform.position = wife_position_2.position;
                 wife.transform.forward = wife_position_2.forward;

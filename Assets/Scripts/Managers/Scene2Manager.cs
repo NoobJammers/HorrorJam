@@ -63,6 +63,11 @@ public class Scene2Manager : SceneManager
     public DoorHandler exitDoor;
     public DoorHandler entrydoor;
 
+    [Header("Audio Scources")]
+    public AudioSource hallLampAS;
+
+
+
     [Header("Misc")]
     public GameObject bulb;
     public Interactable lampInteractable;
@@ -150,14 +155,15 @@ public class Scene2Manager : SceneManager
         {
             CanvasManager.instance.EnableBulb(true);
             lampInteractable.isInteractable = true;
+            AudioManager.instance.PlaySFX(AudioManager.instance.bulbCollected);
         }
         else if (event1 == "LampFixed")
         {
-            // hallLampLightningFlicker.stopflickering();
             float intensity = hallLampLightningFlicker.original_intensity;
-            // hallLampLightningFlicker.enabled = false;
-            Destroy(hallLampLightningFlicker);
             hallLamp.intensity = intensity;
+            hallLampAS.enabled = false;
+            AudioManager.instance.PlaySFX(AudioManager.instance.bulbCollected);
+            Destroy(hallLampLightningFlicker);
 
 
 
@@ -170,6 +176,7 @@ public class Scene2Manager : SceneManager
                 man_switch_animation.animator.enabled = false;
                 wife_switch_animation.animator.enabled = false;
                 baby_switch_animation.animator.enabled = false;
+                AudioManager.instance.PlaySFX(AudioManager.instance.jumpScare);
 
                 man_head_look.startlookingatplayer();
                 wife_head_look.startlookingatplayer();

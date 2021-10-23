@@ -41,7 +41,7 @@ public class Scene3Manager : SceneManager
     public Transform man_init_pos;
     public Transform man_position_1;
     public Transform man_position_2;
-
+    public AudioSource man_audio_source;
 
 
     // [Header("Demon Crawler")]
@@ -98,6 +98,9 @@ public class Scene3Manager : SceneManager
     public GameObject glass, bottle;
     private bool checkIfRenderingMan = false, checkIfRenderingDevil = false;
 
+
+    [Header("Clips")]
+    public AudioClip livingRoomCrash;
 
 
     private void Awake()
@@ -173,6 +176,7 @@ public class Scene3Manager : SceneManager
         if (event1 == "ReadDiary")
         {
             CanvasManager.instance.EnableDiary(true);
+            AudioManager.instance.PlaySFX(AudioManager.instance.diaryRead);
             DoorOpen();
         }
         else if (event1 == "EndDiary")
@@ -231,6 +235,7 @@ public class Scene3Manager : SceneManager
             if ((pos.x > 0f && pos.x < 1f && pos.y > 0f && pos.y < 1f) && (Vector3.Dot(manGameObject.transform.forward, playerCamera.transform.forward) < 0f))
             {
                 checkIfRenderingMan = false;
+                AudioManager.instance.PlaySFX(AudioManager.instance.jumpScare);
                 StartCoroutine(executeafterntime(2f, () => { DoorClose(); }));
             }
         }
@@ -275,6 +280,8 @@ public class Scene3Manager : SceneManager
         couch.transform.rotation = couch_position.rotation;
         table.transform.position = table_position.position;
         table.transform.rotation = table_position.rotation;
+        man_audio_source.clip = livingRoomCrash;
+        man_audio_source.Play();
         glass.SetActive(false);
         bottle.SetActive(false);
     }
@@ -288,8 +295,9 @@ public class Scene3Manager : SceneManager
         devilGameObject.transform.position = devil_position_1.position;
         devilGameObject.transform.rotation = devil_position_1.rotation;
         devil_switch_animation.switchtoanimation("StandingClapIdle", 0, 1f);
-
         checkIfRenderingDevil = true;
+        AudioManager.instance.PlayBG2(true, AudioManager.instance.horrorViolin);
+        // AudioManager.instance.PlayBG1(false);
 
         foreach (WallText child in walltextList)
         {
@@ -304,12 +312,18 @@ public class Scene3Manager : SceneManager
     public void DevilClap()
     {
         devil_switch_animation.switchtoanimation("StandingClap", 0, 1f);
+        AudioManager.instance.PlaySFX(AudioManager.instance.jumpScare);
+        AudioManager.instance.PlaySFX(AudioManager.instance.tripleClap);
         StartCoroutine(executeafterntime(2f, () => { DevilDisappear(); }));
     }
     public void DevilDisappear()
     {
 
         SetAllLights(false);
+        AudioManager.instance.PlayBG2(false, null);
+        AudioManager.instance.PlaySFX(AudioManager.instance.bottleBreak);
+        // AudioManager.instance.PlayBG1(true);
+
 
         //Stop blood text
         foreach (WallText child in walltextList)

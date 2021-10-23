@@ -22,8 +22,6 @@ public class Interactable : MonoBehaviour
         outline.OutlineWidth = 0f;
         CanvasManager.instance.SetInteractTextValue("Interact[E]");
         CanvasManager.instance.SetInteractText(false);
-
-
     }
 
     virtual public void PerformInteractableAction() { }
