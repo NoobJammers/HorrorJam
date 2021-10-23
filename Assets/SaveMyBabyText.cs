@@ -12,7 +12,7 @@ public class SaveMyBabyText : MonoBehaviour
     bool shouldRepeat = true;
     float waitTime = 0.5f;
 
-    public void DisplayBloodText()
+    public void DisplaySaveText()
     {
         StartCoroutine(DelayMe());
     }

@@ -149,10 +149,14 @@ public class Scene4Manager : SceneManager
     public Transform man_finale_scene_pos;
     public Transform baby_finale_scene_pos;
     public Transform devil_finale_scene_pos;
-    private void Awake()
+
+
+
+    public List<SaveMyBabyText> saveMyBabyList;
+
+
+    private void Start()
     {
-
-
 
 
     }
@@ -311,7 +315,7 @@ public class Scene4Manager : SceneManager
             StartCoroutine(executeafterntime(50, () =>
             {
                 devil_switch_animation.switchtoanimation("sit_clap", 0, 1);
-                AudioManager.instance.PlaySFX(AudioManager.instance.singleClap);
+                StartCoroutine(executeafterntime(0.6f, () => AudioManager.instance.PlaySFX(AudioManager.instance.singleClap)));
                 StartCoroutine(executeafterntime(1f, () =>
                 {
                     cad.colorFilter.Override(new Color(0, 0, 0));
@@ -347,6 +351,7 @@ public class Scene4Manager : SceneManager
             wife.transform.position = wife_final_position.position + Vector3.up * 10;
             wife.transform.forward = wife_final_position.forward;
             kidroomdoorlight.gameObject.SetActive(true);
+
         }
         else if (event1 == "Shelf")
         {
@@ -423,7 +428,19 @@ public class Scene4Manager : SceneManager
                 wife.transform.DOLocalMoveZ(wife_position_3.position.z, 15).SetEase(Ease.InOutSine).OnComplete(() =>
                 {
 
-                    wife.transform.DOLocalRotate(Vector3.up * 0, 4).OnComplete(() => { wife_switch_animation.switchtoanimation("ghost_point", 0, 1f); });
+                    wife.transform.DOLocalRotate(Vector3.up * 0, 4).OnComplete(() =>
+                    {
+                        wife_switch_animation.switchtoanimation("ghost_point", 0, 1f);
+                        foreach (SaveMyBabyText child in saveMyBabyList)
+                            child.DisplaySaveText();
+
+                        StartCoroutine(executeafterntime(3f, () =>
+                        {
+                            foreach (SaveMyBabyText child in saveMyBabyList)
+                                child.StopSaveText();
+                        }));
+
+                    });
 
                 });
             }));
