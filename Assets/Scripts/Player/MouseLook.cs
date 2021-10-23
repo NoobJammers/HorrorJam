@@ -6,6 +6,7 @@ using UnityEngine;
 public class MouseLook : MonoBehaviour
 {
 
+    static public MouseLook instance;
     float mouseSensi;
     public float mouseSensitivity { set { mouseSensi = value; } get { return mouseSensi; } }
     [SerializeField] Transform playerBody;
@@ -13,10 +14,21 @@ public class MouseLook : MonoBehaviour
 
     bool shouldTween = false, increament = true;
 
-    void Start()
+    public void LockCursor(bool status)
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        if (status)
+            Cursor.lockState = CursorLockMode.Locked;
+
+        else
+            Cursor.lockState = CursorLockMode.None;
     }
+
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
 
     void Update()
     {

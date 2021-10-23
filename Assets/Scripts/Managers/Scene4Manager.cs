@@ -320,6 +320,7 @@ public class Scene4Manager : SceneManager
                 {
                     cad.colorFilter.Override(new Color(0, 0, 0));
                     AudioManager.instance.PlaySFX(AudioManager.instance.devilBeginning);
+                    CanvasManager.instance.ShowCredits();
 
                 }));
             }));

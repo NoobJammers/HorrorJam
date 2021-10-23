@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
+    static public PlayerController instance;
     [SerializeField] Rigidbody rigidBody;
     [SerializeField] MouseLook mouseLook;
     [SerializeField] float lookSpeed = 200f;
@@ -13,11 +13,13 @@ public class PlayerController : MonoBehaviour
     Vector3 move;
     public bool canMove = false;
 
-
+    private void Awake()
+    {
+        instance = this;
+    }
     private void Start()
     {
         mouseLook.mouseSensitivity = lookSpeed;
-        SetCanMove(true);
     }
     void Update()
     {
@@ -57,8 +59,6 @@ public class PlayerController : MonoBehaviour
         if (status)
         {
             canMove = true;
-            AudioManager.instance.PlaySFX(AudioManager.instance.devilBeginning);
-
         }
     }
 
