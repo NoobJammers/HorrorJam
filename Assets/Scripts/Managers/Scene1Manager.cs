@@ -93,16 +93,10 @@ public class Scene1Manager : SceneManager
         }
         if (collider.tag == "AboutToExitTrigger")
         {
-            if (otherhouseactive)
-            {
-                scenedriver.scenemanagers[1].transform.parent.gameObject.SetActive(false);
-                otherhouseactive = false;
-            }
-            else
-            {
+            
                 scenedriver.scenemanagers[1].transform.parent.gameObject.SetActive(true);
                 otherhouseactive = true;
-            }
+            
         }
     }
 

@@ -21,7 +21,7 @@ public class Scene4Manager : SceneManager
     public CharacterMover baby_char_mover;
     public CharacterHeadLook baby_head_look;
     public CharacterSwitchAnimation baby_switch_animation;
-
+    private bool keyretirved;
     public Transform baby_init_position;
     public Transform baby_position_1;
     public Transform baby_position_2;
@@ -74,7 +74,7 @@ public class Scene4Manager : SceneManager
     public Transform maninitpos;
     public Transform manfinalposition;
     public GameObject man_DEVILEYES;
-
+    public GameObject bookshelf;
 
 
     /// <summary>
@@ -339,14 +339,17 @@ public class Scene4Manager : SceneManager
     public void InteractionEventHandler(string event1)
     {
         if (event1 == "Pot")
-        {
-            CanvasManager.instance.EnableKey(true);
-            AudioManager.instance.PlaySFX(AudioManager.instance.keyCollected);
+        { if (!keyretirved)
+            {
+                CanvasManager.instance.EnableKey(true);
+                AudioManager.instance.PlaySFX(AudioManager.instance.keyCollected);
+                keyretirved = true;            }
         }
         else if (event1 == "EndKey")
         {
             DOTween.Kill(wife.transform);
             timetopush = true;
+            bookshelf1.gameObject.GetComponent<Rigidbody>().mass = 0.8f;
             kidsRoomDoor.CanOpen = true;
             wife.transform.position = wife_final_position.position + Vector3.up * 10;
             wife.transform.forward = wife_final_position.forward;
@@ -357,7 +360,7 @@ public class Scene4Manager : SceneManager
         {
             if (timetopush)
             {
-                bookshelf1.push(bookshelf1.transform.right + bookshelf1.transform.forward, 1000, bookshelf1.transform.position);
+                bookshelf1.push(bookshelf1.transform.right + bookshelf1.transform.forward, 3, bookshelf1.transform.position);
 
 
             }
@@ -482,7 +485,7 @@ public class Scene4Manager : SceneManager
             }
             else
             {
-                CanvasManager.instance.SetInteractTextValue("");
+                CanvasManager.instance.SetInteractTextValue("Not able to move it yet, too heavy!");
             }
         }
         if (g.tag == "ExitDoorHandle")

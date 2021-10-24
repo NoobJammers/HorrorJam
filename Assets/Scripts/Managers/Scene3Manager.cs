@@ -11,6 +11,7 @@ public class Scene3Manager : SceneManager
 
     private bool otherhouseactive;
     public GameObject whiskeyobj;
+    private bool diaryread;
     [Header("Baby")]
     public GameObject babyGameObject;
     public CharacterMover baby_char_mover;
@@ -140,16 +141,10 @@ public class Scene3Manager : SceneManager
         }
         if (collider.tag == "AboutToExitTrigger")
         {
-            if (otherhouseactive)
-            {
-                scenedriver.scenemanagers[3].transform.parent.parent.gameObject.SetActive(false);
-                otherhouseactive = false;
-            }
-            else
-            {
+            
                 scenedriver.scenemanagers[3].transform.parent.parent.gameObject.SetActive(true);
                 otherhouseactive = true;
-            }
+            
         }
         // if (collider.tag == "MirrorTrigger")
         // {
@@ -176,10 +171,14 @@ public class Scene3Manager : SceneManager
     {
 
         if (event1 == "ReadDiary")
-        {
+        {   
             CanvasManager.instance.EnableDiary(true);
-            AudioManager.instance.PlaySFX(AudioManager.instance.diaryRead);
-            DoorOpen();
+            if (!diaryread)
+            {
+                AudioManager.instance.PlaySFX(AudioManager.instance.diaryRead);
+                DoorOpen();
+                diaryread = true;
+            }
         }
         else if (event1 == "EndDiary")
         {
